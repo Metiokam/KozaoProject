@@ -1,0 +1,76 @@
+# ---- Fichiers et dossiers Java compilés ----
+*.class
+*.jar
+*.war
+*.ear
+
+# ---- Logs ----
+*.log
+
+# ---- BlueJ ----
+*.ctxt
+
+# ---- Mobile Tools for Java (J2ME) ----
+.mtj.tmp/
+
+# ---- Fichiers temporaires ----
+*.tmp
+*.bak
+*.swp
+*~.nib
+*~
+
+# ---- Dossiers de build ----
+/bin/
+/build/
+/out/
+/target/
+
+# ---- IDE spécifiques ----
+
+# Eclipse
+.project
+.classpath
+.settings/
+.loadpath
+.recommenders/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+
+# ---- Maven ----
+log/
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# ---- Gradle ----
+.gradle/
+build/
+
+# ---- Autres outils ----
+*.DS_Store
+Thumbs.db
+
+# ---- Sauvegardes système ----
+ehthumbs.db
+Icon?
+.DS_Store
