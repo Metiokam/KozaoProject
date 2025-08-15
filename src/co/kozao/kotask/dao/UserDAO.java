@@ -1,20 +1,21 @@
-package co.kozao.kotask.services;
+package co.kozao.kotask.dao;
 
 import co.kozao.kotask.models.User;
-
 import java.util.List;
 
-public interface UserInterface {
+public interface UserDAO {
 	
-	User createUser(User user);
-
-	User authenticate(String email, String password);
-
 	User getUserById(int idUser);
+	
+	User findByEmail(String email);
+
+	User createUser(User user);
 
 	boolean updateUser(User user);
 
 	boolean deleteUser(int idUser);
 
 	List<User> getAllUsers();
+
+	//User authenticate(String email, String password);
 }
