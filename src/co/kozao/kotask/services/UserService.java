@@ -1,22 +1,112 @@
-package co.kozao.kotask.dao;
+package co.kozao.kotask.services;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
+//import co.kozao.kotask.dao.UserDAO;
+//import co.kozao.kotask.dao.UserDAOImpl;
 import co.kozao.kotask.models.Role;
 import co.kozao.kotask.models.User;
 import co.kozao.kotask.services.connexion.DBConnection;
 import co.kozao.kotask.utils.Contants;
-import org.apache.log4j.Logger;
+import co.kozao.kotask.utils.UserActionValidationUtils;
+import org.apache.commons.lang3.time.StopWatch;
 
-public class UserDAOImpl implements UserDAO {
+public class UserService implements UserServiceInterface {
 
-	private static final Logger LOGGER = Logger.getLogger(UserDAOImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(UserService.class);
 	private Connection con = DBConnection.getConnection();
 	private final String TABLE_NAME = "users";
+	//private UserDAO userDAO = new UserDAOImpl();
 
 	@Override
 	public User createUser(User user) {
+	
+
+	    try {
+		StopWatch watch1 = new StopWatch();
+        watch1.start();
+        
+		if (!UserActionValidationUtils.validateUser(user)) {
+			LOGGER.error("Validation échouée. Création impossible.");
+			return null;
+		}
+
+		String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+        user.setPassword(hashed);
+        user.setConfirmPassword(hashed);
+        
+	    } catch(Exception e ) {
+	    	
+	       //watch1.stop(); // Arrête toujours le chronomètre
+	        //Logger.info("Temps d'exécution pour createUser : " + watch1.getTime() + " ms");
+	    }
+
+
+		return createUser1(user);
+		
+		
+	}
+
+	@Override
+	public User authenticate(String email, String password) {
+		if (!UserActionValidationUtils.validateLogin(email, password)) {
+			LOGGER.error("Login invalide.");
+			return null;
+		}
+		User user = findByEmail(email);
+		if (user != null && BCrypt.checkpw(password, user.getPassword())) {
+			return user;
+		}
+		LOGGER.error("Échec d'authentification : utilisateur introuvable ou mot de passe incorrect.");
+		return null;
+	}
+
+	@Override
+	public User getUserById(int idUser) {
+		if (!UserActionValidationUtils.validateUserId(idUser))
+			return null;
+		return getUserById1(idUser);
+	}
+
+	@Override
+	public boolean updateUser(User user) {
+		if (!UserActionValidationUtils.validateUser(user)) {
+			LOGGER.error("Validation échouée. Modification impossible.");
+			return false;
+		}
+
+		// Hachage si mot de passe modifié
+		if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+			String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+			user.setPassword(hashed);
+			user.setConfirmPassword(hashed);
+		}
+		return updateUser1(user);
+	}
+
+	@Override
+	public boolean deleteUser(int idUser) {
+		if (!UserActionValidationUtils.validateUserId(idUser))
+			return false;
+
+		return deleteUser1(idUser);
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		return getAllUsers1();
+	}
+	
+	
+	
+	public User createUser1(User user) {
 		String query = String.format(Contants.CREATED_USERS, TABLE_NAME, "name", "username", "email", "phoneNumber",
 				"role", "password", "confirmPassword");
 		try (PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -41,8 +131,8 @@ public class UserDAOImpl implements UserDAO {
 		return null;
 	}
 
-	@Override
-	public User getUserById(int idUser) {
+	
+	public User getUserById1(int idUser) {
 		String query = String.format(Contants.GET_USER_BY_ID, TABLE_NAME, "idUser");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setInt(1, idUser);
@@ -55,7 +145,7 @@ public class UserDAOImpl implements UserDAO {
 		return null;
 	}
 
-	@Override
+	
 	public User findByEmail(String email) {
 		String query = String.format(Contants.GET_USER_BY_EMAIL, TABLE_NAME, "email");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
@@ -69,8 +159,8 @@ public class UserDAOImpl implements UserDAO {
 		return null;
 	}
 
-	@Override
-	public boolean updateUser(User user) {
+	
+	public boolean updateUser1(User user) {
 		String query = String.format(Contants.UPDATE_USERS, TABLE_NAME, "name", "username", "email", "phoneNumber",
 				"role", "password", "confirmPassword", "idUser");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
@@ -89,8 +179,8 @@ public class UserDAOImpl implements UserDAO {
 		return false;
 	}
 
-	@Override
-	public boolean deleteUser(int idUser) {
+
+	public boolean deleteUser1(int idUser) {
 		String query = String.format(Contants.DELETE_USERS, TABLE_NAME, "idUser");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setInt(1, idUser);
@@ -101,8 +191,8 @@ public class UserDAOImpl implements UserDAO {
 		return false;
 	}
 
-	@Override
-	public List<User> getAllUsers() {
+	
+	public List<User> getAllUsers1() {
 		List<User> users = new ArrayList<>();
 		String query = String.format(Contants.GET_ALL_USERS, TABLE_NAME);
 		try (PreparedStatement ps = con.prepareStatement(query); ResultSet rs = ps.executeQuery()) {

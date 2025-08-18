@@ -9,9 +9,9 @@ import co.kozao.kotask.controllers.UserAccessController;
 
 public class DashboardAdmin {
 
-	public static void start() {
+	public static void start(Scanner scanner) {
 		UserAccessController controller = new UserAccessController();
-		try (Scanner scanner = new Scanner(System.in)) {
+		
 			boolean running = true;
 
 			while (running) {
@@ -31,6 +31,7 @@ public class DashboardAdmin {
 				switch (choix) {
 
 				case 1:
+					
 					System.out.print("Nom : ");
 					String name = scanner.nextLine();
 
@@ -38,56 +39,58 @@ public class DashboardAdmin {
 					String username = scanner.nextLine();
 
 					System.out.print("Email : ");
-					String email = scanner.nextLine();
+					String email1 = scanner.nextLine();
 
 					System.out.print("Téléphone : ");
-					int phoneNumber = Integer.parseInt(scanner.nextLine());
+					int phoneNumber = scanner.nextInt();
+					scanner.nextLine();
 
 					System.out.print("Rôle : ");
 					Role role = Role.valueOf(scanner.nextLine().toUpperCase());
 
 					System.out.print("Mot de passe : ");
-					String password = scanner.nextLine();
+					String password1 = scanner.nextLine();
 
 					System.out.print("Confirmer mot de passe : ");
 					String confirmPassword = scanner.nextLine();
 
-					if (!password.equals(confirmPassword)) {
+					if (!password1.equals(confirmPassword)) {
 						System.out.println("Les mots de passe ne correspondent pas !");
 						return;
 					}
-					User user = controller.createUser(null);
-					if (user != null) {
+					User user1 = controller.createUser(name,username,email1,phoneNumber,role,password1,confirmPassword);
+					if (user1 != null) {
 						System.out.println("Compte créé avec succès !");
 					} else {
 						System.out.println("Erreur lors de la création du compte.");
 					}
 					break;
 
+
 				case 2:
 					System.out.print("ID utilisateur à modifier : ");
 					int idUser = scanner.nextInt();
 					scanner.nextLine();
 
-					User user1 = controller.getUserById(idUser);
-					if (user1 != null) {
+					User user = controller.getUserById(idUser);
+					if (user != null) {
 						System.out.print("Nouveau nom : ");
-						user1.setName(scanner.nextLine());
+						user.setName(scanner.nextLine());
 						System.out.print("Nouveau username : ");
-						user1.setUsername(scanner.nextLine());
+						user.setUsername(scanner.nextLine());
 						System.out.print("Nouvel email : ");
-						user1.setEmail(scanner.nextLine());
+						user.setEmail(scanner.nextLine());
 						System.out.print("Nouveau téléphone : ");
-						user1.setPhoneNumber(scanner.nextInt());
+						user.setPhoneNumber(scanner.nextInt());
 						scanner.nextLine();
 						System.out.print("Nouveau rôle (ADMIN, CHEF_PROJECT, EMPLOYER) : ");
-						user1.setRole(Role.valueOf(scanner.nextLine()));
+						user.setRole(Role.valueOf(scanner.nextLine()));
 						System.out.print("Nouveau mot de passe : ");
 						String pwd = scanner.nextLine();
-						user1.setPassword(pwd);
-						user1.setConfirmPassword(pwd);
+						user.setPassword(pwd);
+						user.setConfirmPassword(pwd);
 						
-						if (controller.updateUser(user1)) {
+						if (controller.updateUser(user)) {
 							System.out.println("Utilisateur mis à jour !");
 						} else {
 							System.out.println("Échec de la mise à jour.");
@@ -112,14 +115,24 @@ public class DashboardAdmin {
 				
 				break;
 				case 4: {
-					List<User> users = controller.getAllUsers();
-					if (users.isEmpty()) {
-						System.out.println("Aucun utilisateur trouvé.");
-					} else {
-						users.forEach(System.out::println);
-						// users.forEach(List<User> user1 :users);
-					}
+				    List<User> users = controller.getAllUsers();
+				    if (users.isEmpty()) {
+				        System.out.println("Aucun utilisateur trouvé.");
+				    } else {
+				        System.out.println("=== Liste des utilisateurs ===");
+				        for (User u : users) {
+				            System.out.printf("ID: %d | Nom: %s | Prénom: %s | Email: %s | Téléphone: %d | Rôle: %s%n",
+				                u.getIdUser(),
+				                u.getName(),
+				                u.getUsername(),
+				                u.getEmail(),
+				                u.getPhoneNumber(),
+				                u.getRole());
+				        }
+				    }
+				    break;
 				}
+			
 				case 0: {
 					System.out.println("Déconnexion. Au revoir !");
 					running = false;
@@ -132,6 +145,6 @@ public class DashboardAdmin {
 					break;
 				}
 			}
-		}
+		
 	}
 }

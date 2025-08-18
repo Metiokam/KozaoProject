@@ -4,7 +4,7 @@ import co.kozao.kotask.models.User;
 
 import java.util.List;
 
-public interface UserInterface {
+public interface UserServiceInterface {
 	
 	User createUser(User user);
 

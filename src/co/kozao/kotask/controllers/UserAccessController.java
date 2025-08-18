@@ -1,15 +1,16 @@
 package co.kozao.kotask.controllers;
 
+import co.kozao.kotask.models.Role;
 import co.kozao.kotask.models.User;
 //import co.kozao.kotask.models.Role;
-import co.kozao.kotask.services.UserInterface;
-import co.kozao.kotask.services.UserServiceImplement;
+import co.kozao.kotask.services.UserServiceInterface;
+import co.kozao.kotask.services.UserService;
 import co.kozao.kotask.utils.UserActionValidationUtils;
 import org.apache.log4j.Logger;
 import java.util.List;
 
 public class UserAccessController {
-	private UserInterface userService = new UserServiceImplement();
+	private UserServiceInterface userService = new UserService();
 	private static final Logger LOGGER = Logger.getLogger(UserAccessController.class);
 
 	public User authenticate(String email, String password) {
@@ -30,25 +31,70 @@ public class UserAccessController {
 		}
 	}
 
-	public User createUser(User user) {
-		if (!UserActionValidationUtils.validateUser(user))
+	public User createUser(String name, String username, String email, int phoneNumber, Role role, String password,
+			String confirmPassword) {
+		User user = new User();
+		user.setName(name);
+		user.setUsername(username);
+		user.setEmail(email);
+		user.setPhoneNumber(phoneNumber);
+		user.setRole(role);
+		user.setPassword(password);
+		user.setConfirmPassword(confirmPassword);
+		try {
+			if (!UserActionValidationUtils.validateUser(user)) {
+				
+				return null;
+			}
+			return userService.createUser(user);
+			
+		}catch(Exception e) {
+			LOGGER.error("Erreur lors de la creaction de l'utilisateur : " + e.getMessage());
 			return null;
-		return userService.createUser(user);
+		}
+		
+		
 	}
 
 	public User getUserById(int idUser) {
-		return userService.getUserById(idUser);
+		try {
+			return userService.getUserById(idUser);
+			
+		}catch(Exception e) {
+			LOGGER.error("Erreur lors de la recuperation de l'identifiant de l'utilisateur : " + e.getMessage());
+			return null;
+		}
+		
+		
 	}
 
 	public boolean updateUser(User user) {
-		return userService.updateUser(user);
+		try {
+			return userService.updateUser(user);
+		}catch(Exception e) {
+			LOGGER.error("Erreur lors de la modification de l'identifiant de l'utilisateur : " + e.getMessage());
+			return false;
+		}
+		
 	}
 
 	public boolean deleteUser(int idUser) {
-		return userService.deleteUser(idUser);
+		try {
+			return userService.deleteUser(idUser);
+		}
+		catch(Exception e) {
+			LOGGER.error("Erreur lors de la suppression d'utilisateur de l'utilisateur : " + e.getMessage());
+			return false;
+		}
 	}
 
 	public List<User> getAllUsers() {
-		return userService.getAllUsers();
+		try {
+			return userService.getAllUsers();
+		}catch(Exception e) {
+			LOGGER.error("Erreur lors de l'affichage de la liste des utilisateurs  : " + e.getMessage());
+			return null;
+		}
+		
 	}
 }
