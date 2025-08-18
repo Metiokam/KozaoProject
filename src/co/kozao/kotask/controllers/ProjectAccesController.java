@@ -1,5 +1,5 @@
 package co.kozao.kotask.controllers;
 
-public class TeamAccesController {
+public class ProjectAccesController {
 
 }

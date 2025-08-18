@@ -8,8 +8,8 @@ public class TeamProject {
 	
 	private int idProjectMenber;
 	private String name;
-	private LocalDateTime dateAjout;
-	private LocalDateTime dateSortir;
+	private LocalDateTime dateAdded;
+	private LocalDateTime dateRemoved;
 	private List<User> members = new ArrayList<>();
 	
 	
@@ -22,8 +22,8 @@ public class TeamProject {
 		
 		this.idProjectMenber = idProjectMenber;
 		this.name = name;
-		this.dateAjout = dateAjout;
-		this.dateSortir = dateSortir;
+		this.dateAdded = dateAjout;
+		this.dateRemoved = dateSortir;
 		this.members = members;
 	}
 

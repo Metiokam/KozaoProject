@@ -1,107 +1,126 @@
 package co.kozao.kotask.models;
 
+import java.time.LocalDate;
+import java.util.List;
+//import co.kozao.kotask.models.ProjectStatus;
+
 public class Project {
-	
-	public enum Statut{EN_COURS, TERMINE, EN_ATTENTE}
-	
-	private int idProject;
-	private String nomProject;
-	private String descriptionProject;
-	private String dateDebutProject;
-	private String dateFinProject;
-	private Statut statutProject;
-	
-	
+    private int id;
+    private String name;           
+    private String projectKey;     
+    private String description;
+    private LocalDate startDate;   
+    private LocalDate endDate;     
+    private ProjectStatus status;  
+
+    private User projectManager;   
+    private List<User> members;    
+    private List<Task> task;
+    
 	public Project() {
+		
+	}
+
+	public Project(int id, String name, String projectKey, String description, LocalDate startDate, LocalDate endDate,
+			ProjectStatus status, User projectManager, List<User> members, List<Task> task) {
 		super();
-		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.name = name;
+		this.projectKey = projectKey;
+		this.description = description;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.status = status;
+		this.projectManager = projectManager;
+		this.members = members;
+		this.task = task;
 	}
 
-
-	public Project(int idProject, String nomProject, String descriptionProject, String dateDebutProject,
-			String dateFinProject, Statut statutProject) {
-		super();
-		this.idProject = idProject;
-		this.nomProject = nomProject;
-		this.descriptionProject = descriptionProject;
-		this.dateDebutProject = dateDebutProject;
-		this.dateFinProject = dateFinProject;
-		this.statutProject = statutProject;
+	public int getId() {
+		return id;
 	}
 
-
-	public int getIdProject() {
-		return idProject;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-
-	public void setIdProject(int idProject) {
-		this.idProject = idProject;
+	public String getName() {
+		return name;
 	}
 
-
-	public String getNomProject() {
-		return nomProject;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-
-	public void setNomProject(String nomProject) {
-		this.nomProject = nomProject;
+	public String getProjectKey() {
+		return projectKey;
 	}
 
-
-	public String getDescriptionProject() {
-		return descriptionProject;
+	public void setProjectKey(String projectKey) {
+		this.projectKey = projectKey;
 	}
 
-
-	public void setDescriptionProject(String descriptionProject) {
-		this.descriptionProject = descriptionProject;
+	public String getDescription() {
+		return description;
 	}
 
-
-	public String getDateDebutProject() {
-		return dateDebutProject;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-
-	public void setDateDebutProject(String dateDebutProject) {
-		this.dateDebutProject = dateDebutProject;
+	public LocalDate getStartDate() {
+		return startDate;
 	}
 
-
-	public String getDateFinProject() {
-		return dateFinProject;
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
 	}
 
-
-	public void setDateFinProject(String dateFinProject) {
-		this.dateFinProject = dateFinProject;
+	public LocalDate getEndDate() {
+		return endDate;
 	}
 
-
-	public Statut getStatutProject() {
-		return statutProject;
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 
-
-	public void setStatutProject(Statut statutProject) {
-		this.statutProject = statutProject;
+	public ProjectStatus getStatus() {
+		return status;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Project [idProject=" + idProject + ", nomProject=" + nomProject + ", descriptionProject="
-				+ descriptionProject + ", dateDebutProject=" + dateDebutProject + ", dateFinProject=" + dateFinProject
-				+ ", statutProject=" + statutProject + "]";
+	public void setStatus(ProjectStatus status) {
+		this.status = status;
 	}
 
+	public User getProjectManager() {
+		return projectManager;
+	}
 
+	public void setProjectManager(User projectManager) {
+		this.projectManager = projectManager;
+	}
+
+	public List<User> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<User> members) {
+		this.members = members;
+	}
+
+	public List<Task> getTask() {
+		return task;
+	}
+
+	public void setTask(List<Task> task) {
+		this.task = task;
+	}  
+    
+    
 	
-	
-	
-	
-	
-
+    
+         
 }
+
+
+
