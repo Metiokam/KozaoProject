@@ -1,47 +1,45 @@
 package co.kozao.kotask.models;
 
 import java.time.LocalDate;
-import java.util.List;
-//import co.kozao.kotask.models.ProjectStatus;
+//import java.util.List;
+import co.kozao.kotask.models.enums.ProjectStatus;
 
 public class Project {
-    private int id;
+    private int idProject;
     private String name;           
     private String projectKey;     
     private String description;
     private LocalDate startDate;   
     private LocalDate endDate;     
     private ProjectStatus status;  
-
-    private User projectManager;   
-    private List<User> members;    
-    private List<Task> task;
+    private int idProjectManager;   
+   
     
 	public Project() {
 		
 	}
 
-	public Project(int id, String name, String projectKey, String description, LocalDate startDate, LocalDate endDate,
-			ProjectStatus status, User projectManager, List<User> members, List<Task> task) {
+	public Project(int idProject, String name, String projectKey, String description, LocalDate startDate, LocalDate endDate,
+			ProjectStatus status, int idProjectManager) {
 		super();
-		this.id = id;
+		this.idProject = idProject;
 		this.name = name;
 		this.projectKey = projectKey;
 		this.description = description;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.status = status;
-		this.projectManager = projectManager;
-		this.members = members;
-		this.task = task;
+		this.idProjectManager = idProjectManager;
+		//this.members = members;
+		//this.task = task;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdProject() {
+		return idProject;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdProject(int idProject) {
+		this.idProject = idProject;
 	}
 
 	public String getName() {
@@ -92,30 +90,22 @@ public class Project {
 		this.status = status;
 	}
 
-	public User getProjectManager() {
-		return projectManager;
+	public int getIdProjectManager() {
+		return idProjectManager;
 	}
 
-	public void setProjectManager(User projectManager) {
-		this.projectManager = projectManager;
+	public void setIdProjectManager(int idProjectManager) {
+		this.idProjectManager = idProjectManager;
 	}
 
-	public List<User> getMembers() {
-		return members;
+	@Override
+	public String toString() {
+		return "Project [idProject=" + idProject + ", name=" + name + ", projectKey=" + projectKey + ", description=" + description
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", status=" + status + ", idProjectManager="
+				+ idProjectManager + "]";
 	}
 
-	public void setMembers(List<User> members) {
-		this.members = members;
-	}
-
-	public List<Task> getTask() {
-		return task;
-	}
-
-	public void setTask(List<Task> task) {
-		this.task = task;
-	}  
-    
+	
     
 	
     

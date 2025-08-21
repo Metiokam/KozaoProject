@@ -1,6 +1,6 @@
-package co.kozao.kotask.utils;
+package co.kozao.kotask.utils.actionvalidation;
 
-import co.kozao.kotask.models.Role;
+import co.kozao.kotask.models.enums.Role;
 import co.kozao.kotask.models.User;
 import org.apache.log4j.Logger;
 import java.util.regex.Pattern;
@@ -62,6 +62,6 @@ public class UserActionValidationUtils {
 	}
 
 	public static boolean isValidRole(Role role) {
-		return role == Role.ADMIN || role == Role.CHEF_PROJECT || role == Role.EMPLOYER;
+		return role == Role.ADMIN || role == Role.PROJECT_MANAGER || role == Role.MEMBER || role == Role.TESTER;
 	}
 }

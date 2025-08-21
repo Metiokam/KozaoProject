@@ -1,5 +1,7 @@
 package co.kozao.kotask.models;
 
+import co.kozao.kotask.models.enums.Role;
+
 /**
  * 
  * @author Brinda Metiokam <metiokam.brinda@gmail.com>

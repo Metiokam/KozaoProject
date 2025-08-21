@@ -1,4 +1,4 @@
-package co.kozao.kotask.services;
+package co.kozao.kotask.services.interfaces;
 
 import co.kozao.kotask.models.User;
 

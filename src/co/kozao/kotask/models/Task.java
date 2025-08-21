@@ -1,41 +1,42 @@
 package co.kozao.kotask.models;
 
 
-import java.sql.Date;
+//import java.sql.Date;
+import java.time.LocalDateTime;
+
+import co.kozao.kotask.models.enums.PriorityTask;
+import co.kozao.kotask.models.enums.StatusTask;
 
 public class Task {
 	
-	public enum Statut{A_FAIRE, EN_COURS, TERMINE}
-	
-	public enum Priorite{HAUTE, MOYENNE, BASSE}
-	
 	private int idTask;
-	private String titre;
+	private String title;
 	private String description;
-	private Statut statut;
-	private Priorite priorite;
-	private Date dateDebut;
-	private Date dateFin;
+	private StatusTask statut;
+	private PriorityTask priority;
+	private LocalDateTime startDate;
+	private LocalDateTime endDate;
+	private int idProject;
+	private int idUser;
 	
 	
 	public Task() {
-		super();
-		// TODO Auto-generated constructor stub
+	
 	}
 
-
-	public Task(int idTask, String titre, String description, Statut statut, Priorite priorite, Date dateDebut,
-			Date dateFin) {
+	public Task(int idTask, String title, String description, StatusTask statut, PriorityTask priority,
+			LocalDateTime startDate, LocalDateTime endDate, int idProject, int idUser) {
 		super();
 		this.idTask = idTask;
-		this.titre = titre;
+		this.title = title;
 		this.description = description;
 		this.statut = statut;
-		this.priorite = priorite;
-		this.dateDebut = dateDebut;
-		this.dateFin = dateFin;
+		this.priority = priority;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.idProject = idProject;
+		this.idUser = idUser;
 	}
-
 
 
 	public int getIdTask() {
@@ -43,23 +44,19 @@ public class Task {
 	}
 
 
-
-	public void setIdTasks(int idTask) {
+	public void setIdTask(int idTask) {
 		this.idTask = idTask;
 	}
 
 
-
-	public String getTitre() {
-		return titre;
+	public String getTitle() {
+		return title;
 	}
 
 
-
-	public void setTitre(String titre) {
-		this.titre = titre;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-
 
 
 	public String getDescription() {
@@ -67,68 +64,82 @@ public class Task {
 	}
 
 
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
 
-
-	public Statut getStatut() {
+	public StatusTask getStatut() {
 		return statut;
 	}
 
 
-
-	public void setStatut(Statut statut) {
+	public void setStatut(StatusTask statut) {
 		this.statut = statut;
 	}
 
 
-
-	public Priorite getPriorite() {
-		return priorite;
+	public PriorityTask getPriority() {
+		return priority;
 	}
 
 
-
-	public void setPriorite(Priorite priorite) {
-		this.priorite = priorite;
+	public void setPriority(PriorityTask priorite) {
+		this.priority = priorite;
 	}
 
 
-
-	public Date getDateDebut() {
-		return dateDebut;
+	public LocalDateTime getStartDate() {
+		return startDate;
 	}
 
 
-
-	public void setDateDebut(Date dateDebut) {
-		this.dateDebut = dateDebut;
+	public void setStartDate(LocalDateTime startDate) {
+		this.startDate = startDate;
 	}
 
 
-
-	public Date getDateFin() {
-		return dateFin;
+	public LocalDateTime getEndDate() {
+		return endDate;
 	}
 
 
-
-	public void setDateFin(Date dateFin) {
-		this.dateFin = dateFin;
+	public void setEndDate(LocalDateTime endDate) {
+		this.endDate = endDate;
 	}
 
+
+	public int getIdProject() {
+		return idProject;
+	}
+
+
+	public void setIdProject(int idProject) {
+		this.idProject = idProject;
+	}
+
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Tasks [idTasks=" + idTask + ", titre=" + titre + ", description=" + description + ", statut=" + statut
-				+ ", priorite=" + priorite + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + "]";
+		return "Task [idTask=" + idTask + ", title=" + title + ", description=" + description + ", statut=" + statut
+				+ ", priority=" + priority + ", startDate=" + startDate + ", endDate=" + endDate + ", idProject="
+				+ idProject + ", idUser=" + idUser + "]";
 	}
+	
+	
 	
 	
 }
 
 
+	
