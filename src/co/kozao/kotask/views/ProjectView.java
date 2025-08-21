@@ -27,13 +27,13 @@ public class ProjectView {
 		String description = scanner.nextLine();
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+		System.out.println(LocalDate.now());
 		System.out.print("Date début (jj/MM/aaaa) : ");
-		String startDateStr = scanner.next();
+		String startDateStr = scanner.nextLine();
 		LocalDate startDate = LocalDate.parse(startDateStr, formatter);
 
 		System.out.print("Date fin (jj/MM/aaaa) : ");
-		String endDateStr = scanner.next();
+		String endDateStr = scanner.nextLine();
 		LocalDate endDate = LocalDate.parse(endDateStr, formatter);
 		scanner.nextLine();
 

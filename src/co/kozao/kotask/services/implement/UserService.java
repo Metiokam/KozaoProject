@@ -94,16 +94,8 @@ public class UserService implements UserServiceInterface {
 	
 
 	@Override
-	public User getUserById(int idUser) {
-		if (!UserActionValidationUtils.validateUserId(idUser))
-			return null;
-		
-		return getUserById1(idUser);
-	}
-	
-	
 
-	public User getUserById1(int idUser) {
+	public User getUserById(int idUser) {
 		String query = String.format(Contants.GET_USER_BY_ID, TABLE_NAME, "idUser");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setInt(1, idUser);
@@ -115,9 +107,12 @@ public class UserService implements UserServiceInterface {
 				user.setUsername(rs.getString("username"));
 				user.setEmail(rs.getString("email"));
 				user.setPhoneNumber(rs.getInt("phoneNumber"));
-				Role.valueOf(rs.getString("role"));
+				user.setRole(Role.valueOf(rs.getString("role")));
+				//Role.valueOf(rs.getString("role"));
 				user.setPassword(rs.getString("password"));
 				user.setConfirmPassword(rs.getString("confirmPassword"));
+				
+				return user;
 			}
 		} catch (SQLException e) {
 			LOGGER.error("Erreur lors de la recuperation de l'identifiant de l'utilisateur : " + e.getMessage());
@@ -125,7 +120,7 @@ public class UserService implements UserServiceInterface {
 		return null;
 	}
 
-	
+	@Override
 	public User findByEmail(String email) {
 		String query = String.format(Contants.GET_USER_BY_EMAIL, TABLE_NAME, "email");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
@@ -187,13 +182,12 @@ public class UserService implements UserServiceInterface {
 	
 	@Override
 	public boolean deleteUser(int idUser) {
+		
 		String query = String.format(Contants.DELETE_USERS, TABLE_NAME, "idUser");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setInt(1, idUser);
-			if (!UserActionValidationUtils.validateUserId(idUser)) {
-
+			
 				return ps.executeUpdate() > 0;
-			}
 
 		} catch (SQLException e) {
 			LOGGER.error("Erreur lors de la suppression d'un utilisateur  : " + e.getMessage());
@@ -217,7 +211,7 @@ public class UserService implements UserServiceInterface {
 				user.setUsername(rs.getString("username"));
 				user.setEmail(rs.getString("email"));
 				user.setPhoneNumber(rs.getInt("phoneNumber"));
-				Role.valueOf(rs.getString("role"));
+				user.setRole(Role.valueOf(rs.getString("role")));
 				user.setPassword(rs.getString("password"));
 				user.setConfirmPassword(rs.getString("confirmPassword"));
 

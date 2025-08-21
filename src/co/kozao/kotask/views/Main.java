@@ -29,7 +29,7 @@ public class Main {
 
                 case 0:
                     System.out.println("Au revoir !");
-                    continuer = false; // On sort de la boucle
+                    continuer = false; 
                     break;
 
                 default:

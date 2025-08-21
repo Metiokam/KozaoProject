@@ -66,7 +66,7 @@ public class UserView {
 			System.out.print("Nouveau téléphone : ");
 			user.setPhoneNumber(scanner.nextInt());
 			scanner.nextLine();
-			System.out.print("Nouveau rôle (ADMIN, CHEF_PROJECT, EMPLOYER) : ");
+			System.out.print("Nouveau rôle (ADMIN, PROJECT_MANAGER, MEMBER, TESTER) : ");
 			user.setRole(Role.valueOf(scanner.nextLine()));
 			System.out.print("Nouveau mot de passe : ");
 			String pwd = scanner.nextLine();

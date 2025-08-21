@@ -17,4 +17,6 @@ public interface UserServiceInterface {
 	boolean deleteUser(int idUser);
 
 	List<User> getAllUsers();
+	
+	User findByEmail(String email);
 }

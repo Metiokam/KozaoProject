@@ -57,6 +57,11 @@ public class UserAccessController {
 
 	public User getUserById(int idUser) {
 		try {
+			
+			if (!UserActionValidationUtils.validateUserId(idUser)) {
+				return null;
+			}
+			
 			return userService.getUserById(idUser);
 
 		} catch (Exception e) {
@@ -78,8 +83,14 @@ public class UserAccessController {
 
 	public boolean deleteUser(int idUser) {
 		try {
+			
+			if (!UserActionValidationUtils.validateUserId(idUser)) {
+				return false;
+			}
 			return userService.deleteUser(idUser);
+			
 		} catch (Exception e) {
+			
 			LOGGER.error("Erreur lors de la suppression d'utilisateur de l'utilisateur : " + e.getMessage());
 			return false;
 		}

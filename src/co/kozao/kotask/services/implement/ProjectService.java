@@ -39,8 +39,8 @@ public class ProjectService implements ProjectServiceInterface {
 				project1.setDescription(rs.getString("description"));
 				project1.setStartDate(rs.getObject("startDate", LocalDate.class));
 				project1.setEndDate(rs.getObject("endDate", LocalDate.class));
-				project1.setStatus(ProjectStatus.valueOf(rs.getString("statuts")));
-				project1.setIdProjectManager(rs.getInt("idProjectManager"));
+				project1.setStatus(ProjectStatus.valueOf(rs.getString("status")));
+				project1.setIdProjectManager(rs.getInt("projectManagerId"));
 
 				project.add(project1);
 			}
@@ -55,26 +55,26 @@ public class ProjectService implements ProjectServiceInterface {
 	public Project createProject(Project project) {
 
 		String query = String.format(Contants.CREATED_PROJECTS, TABLE_NAME, "name", "projectKey", "description",
-				"startDate", "endDate", "statuts", "idProjectManager");
+				"startDate", "endDate", "status", "projectManagerId");
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
-			Project project1 = new Project();
-			ps.setString(1, project1.getName());
-			ps.setString(2, project1.getProjectKey());
-			ps.setString(3, project1.getDescription());
-			ps.setObject(4, project1.getStartDate());
-			ps.setObject(5, project1.getEndDate());
-			ps.setString(6, project1.getStatus().name());
-			ps.setInt(7, project1.getIdProjectManager());
+			
+			ps.setString(1, project.getName());
+			ps.setString(2, project.getProjectKey());
+			ps.setString(3, project.getDescription());
+			ps.setObject(4, project.getStartDate());
+			ps.setObject(5, project.getEndDate());
+			ps.setString(6, project.getStatus().name());
+			ps.setInt(7, project.getIdProjectManager());
 			;
 
 			if (ps.executeUpdate() > 0) {
 
-				return project1;
+				return project;
 			}
 
 		} catch (SQLException e) {
-			LOGGER.error("Erreur lors de la creation du projet " + e.getMessage());
+			LOGGER.error("Erreur lors de la creation du projet " , e);
 		}
 		return null;
 
@@ -84,7 +84,7 @@ public class ProjectService implements ProjectServiceInterface {
 	public boolean updateProject(Project project) {
 
 		String query = String.format(Contants.UPDATE__PROJECTS, TABLE_NAME, "name", "projectKey", "description",
-				"startDate", "endDate", "statuts", "idProjectManager");
+				"startDate", "endDate", "status", "projectManagerId");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setString(1, project.getName());
 			ps.setString(2, project.getProjectKey());
@@ -108,7 +108,9 @@ public class ProjectService implements ProjectServiceInterface {
 		String query = String.format(Contants.DELETE__PROJECTS, TABLE_NAME, "idProject");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setInt(1, idProject);
+			
 			return ps.executeUpdate() > 0;
+			
 		} catch (SQLException e) {
 			LOGGER.error("Erreur lors de la suppression d'un project : " + e.getMessage());
 		}
@@ -125,14 +127,14 @@ public class ProjectService implements ProjectServiceInterface {
 
 			if (rs.next()) {
 				Project project = new Project();
-				project.setIdProject(rs.getInt("id"));
+				project.setIdProject(rs.getInt("idProject"));
 				project.setName(rs.getString("name"));
 				project.setProjectKey(rs.getString("projectKey"));
 				project.setDescription(rs.getString("description"));
 				project.setStartDate(rs.getObject("startDate", LocalDate.class));
 				project.setEndDate(rs.getObject("endDate", LocalDate.class));
-				project.setStatus(ProjectStatus.valueOf(rs.getString("statuts")));
-				project.setIdProjectManager(rs.getInt("idProjectManager"));
+				project.setStatus(ProjectStatus.valueOf(rs.getString("status")));
+				project.setIdProjectManager(rs.getInt("projectManagerId"));
 				return project;
 			}
 
