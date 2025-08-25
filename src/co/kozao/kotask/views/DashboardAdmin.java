@@ -83,6 +83,8 @@ public class DashboardAdmin {
 			case 8:
 
 				projectView.getAllProject();
+				
+				break;
 
 			case 9:
 
@@ -100,6 +102,8 @@ public class DashboardAdmin {
 
 			case 12:
 				taskView.getAllTask();
+				
+				break;
 
 			case 0: {
 				System.out.println("Déconnexion. Au revoir !");

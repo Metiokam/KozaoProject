@@ -30,10 +30,10 @@ public class Contants {
 
 	// Taches
 
-	public static final String CREATED_TASKS = "INSERT INTO % (%s,%s, %s, %s, %s, %s, %s)"
-			+ "VALUES(?, ?, ?, ?, ?, ?, ?)";
+	public static final String CREATED_TASKS = "INSERT INTO %s (%s,%s, %s, %s, %s, %s, %s, %s)"
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_TASKS = "DELETE FROM %s WHERE %s = ?";
-	public static final String UPDATE_TASKS = "UPDATE %s SET  %s=?, %s=?, %s=?, %s=? , %s=? , %s=? , %s=?  WHERE %s = ?";
+	public static final String UPDATE_TASKS = "UPDATE %s SET  %s=?, %s=?, %s=?, %s=? , %s=? , %s=? , %s=? , %s=? WHERE %s = ?";
 	public static final String GET_ALL_TASKS = "SELECT * FROM %s";
 	public static final String GET_TASKS_BY_ID = "SELECT * FROM %s WHERE %s = ?";
 }

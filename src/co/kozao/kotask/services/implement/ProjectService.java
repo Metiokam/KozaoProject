@@ -66,7 +66,7 @@ public class ProjectService implements ProjectServiceInterface {
 			ps.setObject(5, project.getEndDate());
 			ps.setString(6, project.getStatus().name());
 			ps.setInt(7, project.getIdProjectManager());
-			;
+			
 
 			if (ps.executeUpdate() > 0) {
 

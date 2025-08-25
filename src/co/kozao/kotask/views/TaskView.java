@@ -1,7 +1,7 @@
 package co.kozao.kotask.views;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
@@ -18,35 +18,36 @@ public class TaskView {
 
 	public void createTask() {
 
-		System.out.print("	Titre de la tache : ");
+		System.out.print("Titre de la tache : ");
 		String title = scanner.nextLine();
 
 		System.out.print("Description taches : ");
 		String descriptions = scanner.nextLine();
 
 		System.out.print("statut : ");
-		StatusTask statu = StatusTask.valueOf(scanner.nextLine().toUpperCase());
+		StatusTask status = StatusTask.valueOf(scanner.nextLine().toUpperCase());
 
 		System.out.print("Priorite : ");
-		PriorityTask priorit = PriorityTask.valueOf(scanner.nextLine().toUpperCase());
+		PriorityTask priority = PriorityTask.valueOf(scanner.nextLine().toUpperCase());
 
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		System.out.println(LocalDate.now());
 		System.out.print("Date début (jj/MM/aaaa) : ");
-		// String startDates = scanner.nextLine();
-		startDate = LocalDate.parse(scanner.nextLine(), format);
+		String startDateStr = scanner.nextLine();
+		LocalDate startDate = LocalDate.parse(startDateStr, formatter);
 
 		System.out.print("Date fin (jj/MM/aaaa) : ");
-		// String endDates = scanner.nextLine();
-		endDate = LocalDate.parse(scanner.nextLine(), format);
+		String endDateStr = scanner.nextLine();
+		LocalDate endDate = LocalDate.parse(endDateStr, formatter);
+		scanner.nextLine();
 
-		System.out.print("Identifiant Du chef de project : ");
-		int idProjects = Integer.parseInt(scanner.nextLine());
+		System.out.print("Identifiant Du project : ");
+		int idProject = Integer.parseInt(scanner.nextLine());
 
-		System.out.print("Identifiant Du chef de project : ");
-		int idUsers = Integer.parseInt(scanner.nextLine());
+		System.out.print("Identifiant De l'utilisateur project : ");
+		int idUser = Integer.parseInt(scanner.nextLine());
 
-		Task task = taskController.createTask(title, descriptions, statu, priorit, null, null, idProjects, idUsers);
+		Task task = taskController.createTask(title, descriptions, status, priority, startDate, endDate, idProject, idUser);
 		if (task != null) {
 			System.out.println("Task créé avec succès !");
 		} else {
@@ -71,7 +72,7 @@ public class TaskView {
 			tasks.setDescription(scanner.nextLine());
 
 			System.out.print("Nouveau statut : ");
-			tasks.setStatut(StatusTask.valueOf(scanner.nextLine()));
+			tasks.setStatus(StatusTask.valueOf(scanner.nextLine()));
 
 			System.out.print("Nouvelle priorité : ");
 			tasks.setPriority(PriorityTask.valueOf(scanner.nextLine()));
@@ -80,18 +81,18 @@ public class TaskView {
 
 			System.out.print("Nouvelle date de début (jj/MM/aaaa HH:mm) : ");
 			String startDateS = scanner.nextLine();
-			LocalDateTime startDate1 = LocalDateTime.parse(startDateS, formatters);
-			tasks.setStartDate(startDate1);
+			LocalDate startDate = LocalDate.parse(startDateS, formatters);
+			tasks.setStartDate(startDate);
 
 			System.out.print("Nouvelle date de fin (jj/MM/aaaa HH:mm) : ");
 			String endDateS = scanner.nextLine();
-			LocalDateTime endDate1 = LocalDateTime.parse(endDateS, formatters);
-			tasks.setEndDate(endDate1);
+			LocalDate endDate = LocalDate.parse(endDateS, formatters);
+			tasks.setEndDate(endDate);
 
-			System.out.print("Nouveau chef project : ");
+			System.out.print("Nouveau identifiant du project : ");
 			tasks.setIdProject(scanner.nextInt());
 
-			System.out.print("Nouveau chef project : ");
+			System.out.print("Nouveau utilisateur : ");
 			tasks.setIdUser(scanner.nextInt());
 
 			if (taskController.updateTask(tasks)) {
@@ -128,8 +129,8 @@ public class TaskView {
 			System.out.println("=== Liste des Taches ===");
 			for (Task t : task1) {
 				System.out.printf(
-						"Identifiant tache: %d | Titre: %s | Descritpion: %s | Satut: %s | Priorité: %d | Date debut : %d | Date find: %d | Identifiant utilisateur: %s%n",
-						t.getIdTask(), t.getTitle(), t.getDescription(), t.getStatut(), t.getPriority(),
+						"Identifiant tache: %d | Titre: %s | Descritpion: %s | Satut: %s | Priorité: %s | Date debut : %s | Date fin: %s | Identifiant projet: %d| Identifiant utilisateur: %d%n",
+						t.getIdTask(), t.getTitle(), t.getDescription(), t.getStatus(), t.getPriority(),
 						t.getStartDate(), t.getEndDate(), t.getIdProject(), t.getIdUser());
 			}
 		}

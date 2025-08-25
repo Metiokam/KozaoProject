@@ -27,7 +27,7 @@ public class ProjectView {
 		String description = scanner.nextLine();
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		System.out.println(LocalDate.now());
+		//System.out.println(LocalDate.now());
 		System.out.print("Date début (jj/MM/aaaa) : ");
 		String startDateStr = scanner.nextLine();
 		LocalDate startDate = LocalDate.parse(startDateStr, formatter);
@@ -125,7 +125,7 @@ public class ProjectView {
 			System.out.println("=== Liste des Projects ===");
 			for (Project p : project1) {
 				System.out.printf(
-						"Identifiant project : %d | Nom : %s | Description : %s | Date debut : %s | Date fin : %d | Statut : %d | identifiant du chef de project : %s%n",
+						"Identifiant project : %d | Nom : %s | Description : %s | Date debut : %s | Date fin : %s | Statut : %s | identifiant du chef de project : %d%n",
 						p.getIdProject(), p.getName(), p.getDescription(), p.getStartDate(), p.getEndDate(),
 						p.getStatus(), p.getIdProjectManager());
 			}

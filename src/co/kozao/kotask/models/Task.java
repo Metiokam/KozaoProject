@@ -1,8 +1,9 @@
 package co.kozao.kotask.models;
 
 
+import java.time.LocalDate;
 //import java.sql.Date;
-import java.time.LocalDateTime;
+
 
 import co.kozao.kotask.models.enums.PriorityTask;
 import co.kozao.kotask.models.enums.StatusTask;
@@ -12,10 +13,10 @@ public class Task {
 	private int idTask;
 	private String title;
 	private String description;
-	private StatusTask statut;
+	private StatusTask status;
 	private PriorityTask priority;
-	private LocalDateTime startDate;
-	private LocalDateTime endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private int idProject;
 	private int idUser;
 	
@@ -24,13 +25,14 @@ public class Task {
 	
 	}
 
-	public Task(int idTask, String title, String description, StatusTask statut, PriorityTask priority,
-			LocalDateTime startDate, LocalDateTime endDate, int idProject, int idUser) {
-		super();
+
+	public Task(int idTask, String title, String description, StatusTask status, PriorityTask priority,
+			LocalDate startDate, LocalDate endDate, int idProject, int idUser) {
+		
 		this.idTask = idTask;
 		this.title = title;
 		this.description = description;
-		this.statut = statut;
+		this.status = status;
 		this.priority = priority;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -69,13 +71,13 @@ public class Task {
 	}
 
 
-	public StatusTask getStatut() {
-		return statut;
+	public StatusTask getStatus() {
+		return status;
 	}
 
 
-	public void setStatut(StatusTask statut) {
-		this.statut = statut;
+	public void setStatus(StatusTask status) {
+		this.status = status;
 	}
 
 
@@ -84,27 +86,27 @@ public class Task {
 	}
 
 
-	public void setPriority(PriorityTask priorite) {
-		this.priority = priorite;
+	public void setPriority(PriorityTask priority) {
+		this.priority = priority;
 	}
 
 
-	public LocalDateTime getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
 
-	public void setStartDate(LocalDateTime startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
 
-	public LocalDateTime getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
 
-	public void setEndDate(LocalDateTime endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 
@@ -131,12 +133,11 @@ public class Task {
 
 	@Override
 	public String toString() {
-		return "Task [idTask=" + idTask + ", title=" + title + ", description=" + description + ", statut=" + statut
+		return "Task [idTask=" + idTask + ", title=" + title + ", description=" + description + ", status=" + status
 				+ ", priority=" + priority + ", startDate=" + startDate + ", endDate=" + endDate + ", idProject="
 				+ idProject + ", idUser=" + idUser + "]";
 	}
-	
-	
+
 	
 	
 }

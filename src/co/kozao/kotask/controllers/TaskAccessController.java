@@ -1,10 +1,11 @@
 package co.kozao.kotask.controllers;
 
-//import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
+
 import co.kozao.kotask.models.Task;
 import co.kozao.kotask.models.enums.PriorityTask;
 import co.kozao.kotask.models.enums.StatusTask;
@@ -15,16 +16,15 @@ import co.kozao.kotask.services.interfaces.TaskServiceInterface;
 public class TaskAccessController {
 
 	private TaskServiceInterface taskService = new TaskService();
-	private static final Logger LOGGER = Logger.getLogger(ProjectAccessController.class);
+	private static final Logger LOGGER = Logger.getLogger(TaskAccessController.class);
 
-	public Task createTask( String title, String description, StatusTask statut, PriorityTask priority,
-			LocalDateTime startDate, LocalDateTime endDate, int idProject, int idUser) {
+	public Task createTask(String title, String description, StatusTask status, PriorityTask priority,
+			LocalDate startDate, LocalDate endDate, int idProject, int idUser) {
 		Task task = new Task();
 		task.setTitle(title);
 		task.setDescription(description);
-		task.setStatut(statut);
+		task.setStatus(status);
 		task.setPriority(priority);
-		task.setDescription(description);
 		task.setStartDate(startDate);
 		task.setEndDate(endDate);
 		task.setIdProject(idProject);
@@ -34,7 +34,15 @@ public class TaskAccessController {
 
 			// ProjectActionValidationUtils.validate(task);
 
-			return taskService.createTask(task);
+			Task createTask = taskService.createTask(task);
+
+			if (createTask != null) {
+				LOGGER.info("Tache créé avec succès : " + createTask);
+			} else {
+				LOGGER.error("Le service n'a pas pu créer la tache, résultat null.");
+			}
+
+			return createTask;
 
 		} catch (Exception e) {
 			LOGGER.error("Erreur lors de la création de la tache : " + e.getMessage());
@@ -46,7 +54,7 @@ public class TaskAccessController {
 		try {
 			return taskService.updateTask(task);
 		} catch (Exception e) {
-			LOGGER.error("Erreur lors de la modification de l'identifiant de l'utilisateur : " + e.getMessage());
+			LOGGER.error("Erreur lors de la modification de la tache : " + e.getMessage());
 			return false;
 		}
 
@@ -69,18 +77,16 @@ public class TaskAccessController {
 			return null;
 		}
 	}
-	
+
 	public Task getTaskById(int idTask) {
 		try {
 			return taskService.getTaskById(idTask);
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			LOGGER.error("Erreur lors de la recuperation de l'identifiant de la tache : " + e.getMessage());
 			return null;
 		}
-		
-		
-	}
 
+	}
 
 }
