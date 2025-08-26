@@ -27,7 +27,7 @@ public class ProjectView {
 		String description = scanner.nextLine();
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		//System.out.println(LocalDate.now());
+		// System.out.println(LocalDate.now());
 		System.out.print("Date début (jj/MM/aaaa) : ");
 		String startDateStr = scanner.nextLine();
 		LocalDate startDate = LocalDate.parse(startDateStr, formatter);

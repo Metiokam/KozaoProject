@@ -18,7 +18,7 @@ import co.kozao.kotask.utils.Contants;
 
 public class ProjectService implements ProjectServiceInterface {
 
-	private static final Logger LOGGER = Logger.getLogger(UserService.class);
+	private static final Logger LOGGER = Logger.getLogger(ProjectService.class);
 	private Connection con = DBConnection.getConnection();
 	private final String TABLE_NAME = "project";
 

@@ -1,28 +1,34 @@
 package co.kozao.kotask.models;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Document {
 	
 	private int idDocument;
-	private String nom;
-	private String cheminDocument;
-	private LocalDateTime dateUpload;
+	private String documentName;
+	private String DocumentPath;
+	private LocalDate dateAdded;
+	private int idAuthor;
+	private int idProject;
+	private int idTask;
 	
 	
 	public Document() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 
-	public Document(int idDocument, String nom, String cheminDocument, LocalDateTime dateUpload) {
-		super();
+	public Document(int idDocument, String documentName, String documentPath, LocalDate dateAdded, int idAuthor,
+			int idProject, int idTask) {
+		
 		this.idDocument = idDocument;
-		this.nom = nom;
-		this.cheminDocument = cheminDocument;
-		this.dateUpload = dateUpload;
+		this.documentName = documentName;
+		DocumentPath = documentPath;
+		this.dateAdded = dateAdded;
+		this.idAuthor = idAuthor;
+		this.idProject = idProject;
+		this.idTask = idTask;
 	}
 
 
@@ -36,42 +42,74 @@ public class Document {
 	}
 
 
-	public String getNom() {
-		return nom;
+	public String getDocumentName() {
+		return documentName;
 	}
 
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setDocumentName(String documentName) {
+		this.documentName = documentName;
 	}
 
 
-	public String getCheminDocument() {
-		return cheminDocument;
+	public String getDocumentPath() {
+		return DocumentPath;
 	}
 
 
-	public void setCheminDocument(String cheminDocument) {
-		this.cheminDocument = cheminDocument;
+	public void setDocumentPath(String documentPath) {
+		DocumentPath = documentPath;
 	}
 
 
-	public LocalDateTime getDateUpload() {
-		return dateUpload;
+	public LocalDate getDateAdded() {
+		return dateAdded;
 	}
 
 
-	public void setDateUpload(LocalDateTime dateUpload) {
-		this.dateUpload = dateUpload;
+	public void setDateAdded(LocalDate dateAdded) {
+		this.dateAdded = dateAdded;
+	}
+
+
+	public int getIdAuthor() {
+		return idAuthor;
+	}
+
+
+	public void setIdAuthor(int idAuthor) {
+		this.idAuthor = idAuthor;
+	}
+
+
+	public int getIdProject() {
+		return idProject;
+	}
+
+
+	public void setIdProject(int idProject) {
+		this.idProject = idProject;
+	}
+
+
+	public int getIdTask() {
+		return idTask;
+	}
+
+
+	public void setIdTask(int idTask) {
+		this.idTask = idTask;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Document [idDocument=" + idDocument + ", nom=" + nom + ", cheminDocument=" + cheminDocument
-				+ ", dateUpload=" + dateUpload + "]";
+		return "Document [idDocument=" + idDocument + ", documentName=" + documentName + ", DocumentPath="
+				+ DocumentPath + ", dateAdded=" + dateAdded + ", idAuthor=" + idAuthor + ", idProject=" + idProject
+				+ ", idTask=" + idTask + "]";
 	}
+
 	
 	
-    
+
 }

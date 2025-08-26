@@ -1,36 +1,40 @@
 package co.kozao.kotask.models;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 public class Comment {
 	
-	private int idComments;
+	private int idComment;
 	private String message;
-	private LocalDateTime date;
+	private LocalDate dateCreated;
+	private int idAuthor;
+	private int idTask;
 	
 	
 	public Comment() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 
-	public Comment(int idComments, String message, LocalDateTime date) {
+	public Comment(int idComment, String message, LocalDate dateCreated, int idAuthor, int idTask) {
 		super();
-		this.idComments = idComments;
+		this.idComment = idComment;
 		this.message = message;
-		this.date = date;
+		this.dateCreated = dateCreated;
+		this.idAuthor = idAuthor;
+		this.idTask = idTask;
 	}
 
 
-	public int getIdComments() {
-		return idComments;
+	public int getIdComment() {
+		return idComment;
 	}
 
 
-	public void setIdCommets(int idCommets) {
-		this.idComments = idCommets;
+	public void setIdComment(int idComment) {
+		this.idComment = idComment;
 	}
 
 
@@ -44,21 +48,44 @@ public class Comment {
 	}
 
 
-	public LocalDateTime getDate() {
-		return date;
+	public LocalDate getDateCreated() {
+		return dateCreated;
 	}
 
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
+	public void setDateCreated(LocalDate dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+
+	public int getIdAuthor() {
+		return idAuthor;
+	}
+
+
+	public void setIdAuthor(int idAuthor) {
+		this.idAuthor = idAuthor;
+	}
+
+
+	public int getIdTask() {
+		return idTask;
+	}
+
+
+	public void setIdTask(int idTask) {
+		this.idTask = idTask;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Comments [idComments=" + idComments + ", message=" + message + ", date=" + date + "]";
+		return "Comment [idComment=" + idComment + ", message=" + message + ", dateCreated=" + dateCreated
+				+ ", idAuthor=" + idAuthor + ", idTask=" + idTask + "]";
 	}
 	
 	
-
+	
+	
+	
 }
