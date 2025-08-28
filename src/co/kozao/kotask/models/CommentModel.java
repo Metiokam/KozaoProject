@@ -4,7 +4,7 @@ package co.kozao.kotask.models;
 import java.time.LocalDate;
 
 
-public class Comment {
+public class CommentModel {
 	
 	private int idComment;
 	private String message;
@@ -13,12 +13,12 @@ public class Comment {
 	private int idTask;
 	
 	
-	public Comment() {
+	public CommentModel() {
 		
 	}
 
 
-	public Comment(int idComment, String message, LocalDate dateCreated, int idAuthor, int idTask) {
+	public CommentModel(int idComment, String message, LocalDate dateCreated, int idAuthor, int idTask) {
 		super();
 		this.idComment = idComment;
 		this.message = message;

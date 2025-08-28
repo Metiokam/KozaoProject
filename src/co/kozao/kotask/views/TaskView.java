@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 import co.kozao.kotask.controllers.TaskAccessController;
-import co.kozao.kotask.models.Task;
+import co.kozao.kotask.models.TaskModel;
 import co.kozao.kotask.models.enums.PriorityTask;
 import co.kozao.kotask.models.enums.StatusTask;
 
@@ -47,7 +47,7 @@ public class TaskView {
 		System.out.print("Identifiant De l'utilisateur project : ");
 		int idUser = Integer.parseInt(scanner.nextLine());
 
-		Task task = taskController.createTask(title, descriptions, status, priority, startDate, endDate, idProject, idUser);
+		TaskModel task = taskController.createTask(title, descriptions, status, priority, startDate, endDate, idProject, idUser);
 		if (task != null) {
 			System.out.println("Task créé avec succès !");
 		} else {
@@ -62,7 +62,7 @@ public class TaskView {
 		int idTasks = scanner.nextInt();
 		scanner.nextLine();
 
-		Task tasks = taskController.getTaskById(idTasks);
+		TaskModel tasks = taskController.getTaskById(idTasks);
 		if (tasks != null) {
 
 			System.out.print("Nouveau titre: ");
@@ -122,12 +122,12 @@ public class TaskView {
 
 	public void getAllTask() {
 
-		List<Task> task1 = taskController.getAllTask();
+		List<TaskModel> task1 = taskController.getAllTask();
 		if (task1.isEmpty()) {
 			System.out.println("Aucun project trouvé.");
 		} else {
 			System.out.println("=== Liste des Taches ===");
-			for (Task t : task1) {
+			for (TaskModel t : task1) {
 				System.out.printf(
 						"Identifiant tache: %d | Titre: %s | Descritpion: %s | Satut: %s | Priorité: %s | Date debut : %s | Date fin: %s | Identifiant projet: %d| Identifiant utilisateur: %d%n",
 						t.getIdTask(), t.getTitle(), t.getDescription(), t.getStatus(), t.getPriority(),

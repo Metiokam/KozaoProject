@@ -1,7 +1,7 @@
 package co.kozao.kotask.utils.actionvalidation;
 
 import co.kozao.kotask.models.enums.Role;
-import co.kozao.kotask.models.User;
+import co.kozao.kotask.models.UserModel;
 import org.apache.log4j.Logger;
 import java.util.regex.Pattern;
 
@@ -9,7 +9,7 @@ public class UserActionValidationUtils {
 	private static final Logger LOGGER = Logger.getLogger(UserActionValidationUtils.class);
 	private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
 
-	public static boolean validateUser(User user) {
+	public static boolean validateUser(UserModel user) {
 		if (user == null) {
 			LOGGER.error("L'utilisateur est null !");
 			return false;

@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import co.kozao.kotask.models.Comment;
-import co.kozao.kotask.services.implement.CommentService;
+import co.kozao.kotask.models.CommentModel;
+import co.kozao.kotask.services.CommentService;
 import co.kozao.kotask.services.interfaces.CommentServiceInterface;
 
 
@@ -15,9 +15,9 @@ public class CommentAccesController {
 	private CommentServiceInterface commentService = new CommentService();
 	private static final Logger LOGGER = Logger.getLogger(CommentAccesController.class);
 
-	public Comment createComment(String message, LocalDate datecreated, int idAuthor, int idTask) {
+	public CommentModel createComment(String message, LocalDate datecreated, int idAuthor, int idTask) {
 
-		Comment comment = new Comment();
+		CommentModel comment = new CommentModel();
 		comment.setMessage(message);
 		comment.setDateCreated(datecreated);
 		comment.setIdAuthor(idAuthor);
@@ -29,7 +29,7 @@ public class CommentAccesController {
 
 			// ProjectActionValidationUtils.validate(comment);
 
-			Comment createComment = commentService.createComment(comment);
+			CommentModel createComment = commentService.createComment(comment);
 
 			if (createComment != null) {
 				LOGGER.info("Commentaire créé avec succès : " + createComment);
@@ -45,7 +45,7 @@ public class CommentAccesController {
 		}
 	}
 
-	public boolean updateComment(Comment comment) {
+	public boolean updateComment(CommentModel comment) {
 
 		try {
 
@@ -61,9 +61,8 @@ public class CommentAccesController {
 
 	public boolean deleteComment(int idComment) {
 		try {
-			commentService.deleteComment(idComment);
-
-			return true;
+			
+			return commentService.deleteComment(idComment);
 
 		} catch (Exception e) {
 			LOGGER.error("Erreur lors de la suppression du commentaire : " + e.getMessage(), e);
@@ -71,7 +70,7 @@ public class CommentAccesController {
 		}
 	}
 
-	public Comment getCommentById(int idComment) {
+	public CommentModel getCommentById(int idComment) {
 		try {
 			return commentService.getCommentById(idComment);
 
@@ -82,7 +81,7 @@ public class CommentAccesController {
 		}
 	}
 
-	public List<Comment> getAllComment() {
+	public List<CommentModel> getAllComment() {
 		try {
 			return commentService.getAllComment();
 

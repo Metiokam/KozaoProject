@@ -1,4 +1,4 @@
-package co.kozao.kotask.services.implement;
+package co.kozao.kotask.services;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import co.kozao.kotask.models.Document;
+import co.kozao.kotask.models.DocumentModel;
 import co.kozao.kotask.services.connexion.DBConnection;
 import co.kozao.kotask.services.interfaces.DocumentServiceInterface;
 import co.kozao.kotask.utils.Contants;
@@ -22,7 +22,7 @@ public class DocumentService implements DocumentServiceInterface {
 	private final String TABLE_NAME = "document";
 
 	@Override
-	public Document addDocument(Document document) {
+	public DocumentModel addDocument(DocumentModel document) {
 		String query = String.format(Contants.CREATED_DOCUMENTS, TABLE_NAME, "documentName", "documentPath",
 				"dateAdded", "idAuthor", "idProject", "idTask");
 
@@ -61,16 +61,16 @@ public class DocumentService implements DocumentServiceInterface {
 	}
 
 	@Override
-	public List<Document> getAllDocument() {
+	public List<DocumentModel> getAllDocument() {
 
-		List<Document> documents = new ArrayList<>();
+		List<DocumentModel> documents = new ArrayList<>();
 		String query = String.format(Contants.GET_ALL_DOCUMENTS, TABLE_NAME);
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 
-				Document document = new Document();
+				DocumentModel document = new DocumentModel();
 				document.setIdDocument(rs.getInt("idDocument"));
 				document.setDocumentName(rs.getString("documentName"));
 				document.setDocumentPath(rs.getString("documentPath"));
@@ -89,7 +89,7 @@ public class DocumentService implements DocumentServiceInterface {
 	}
 
 	@Override
-	public Document getDocumentById(int idDocument) {
+	public DocumentModel getDocumentById(int idDocument) {
 		String query = String.format(Contants.GET_DOCUMENTS_BY_ID, TABLE_NAME, "idDocument");
 
 		try (PreparedStatement ps = con.prepareStatement(query)) {
@@ -98,7 +98,7 @@ public class DocumentService implements DocumentServiceInterface {
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 
-				Document document = new Document();
+				DocumentModel document = new DocumentModel();
 				document.setIdDocument(rs.getInt("idDocument"));
 				document.setDocumentName(rs.getString("documentName"));
 				document.setDocumentPath(rs.getString("documentPath"));

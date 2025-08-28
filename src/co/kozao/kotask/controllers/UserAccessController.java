@@ -1,10 +1,10 @@
 package co.kozao.kotask.controllers;
 
 import co.kozao.kotask.models.enums.Role;
-import co.kozao.kotask.models.User;
+import co.kozao.kotask.models.UserModel;
 //import co.kozao.kotask.models.Role;
 import co.kozao.kotask.services.interfaces.UserServiceInterface;
-import co.kozao.kotask.services.implement.UserService;
+import co.kozao.kotask.services.UserService;
 import co.kozao.kotask.utils.actionvalidation.UserActionValidationUtils;
 import org.apache.log4j.Logger;
 import java.util.List;
@@ -13,9 +13,9 @@ public class UserAccessController {
 	private UserServiceInterface userService = new UserService();
 	private static final Logger LOGGER = Logger.getLogger(UserAccessController.class);
 
-	public User createUser(String name, String username, String email, int phoneNumber, Role role, String password,
+	public UserModel createUser(String name, String username, String email, int phoneNumber, Role role, String password,
 			String confirmPassword) {
-		User user = new User();
+		UserModel user = new UserModel();
 		user.setName(name);
 		user.setUsername(username);
 		user.setEmail(email);
@@ -37,13 +37,13 @@ public class UserAccessController {
 
 	}
 
-	public User authenticate(String email, String password) {
+	public UserModel authenticate(String email, String password) {
 		try {
 			if (!UserActionValidationUtils.validateLogin(email, password)) {
 				LOGGER.error("Login invalide");
 				return null;
 			}
-			User user = userService.authenticate(email, password);
+			UserModel user = userService.authenticate(email, password);
 			if (user == null) {
 				LOGGER.error("Échec de l'authentification !");
 				return null;
@@ -55,7 +55,7 @@ public class UserAccessController {
 		}
 	}
 
-	public User getUserById(int idUser) {
+	public UserModel getUserById(int idUser) {
 		try {
 			
 			if (!UserActionValidationUtils.validateUserId(idUser)) {
@@ -71,7 +71,7 @@ public class UserAccessController {
 
 	}
 
-	public boolean updateUser(User user) {
+	public boolean updateUser(UserModel user) {
 		try {
 			return userService.updateUser(user);
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class UserAccessController {
 		}
 	}
 
-	public List<User> getAllUsers() {
+	public List<UserModel> getAllUsers() {
 		try {
 			return userService.getAllUsers();
 		} catch (Exception e) {

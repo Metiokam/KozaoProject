@@ -3,13 +3,13 @@ package co.kozao.kotask.services.interfaces;
 import java.util.List;
 
 
-import co.kozao.kotask.models.Document;
+import co.kozao.kotask.models.DocumentModel;
 
 public interface DocumentServiceInterface {
 	
-	Document addDocument(Document document);
+	DocumentModel addDocument(DocumentModel document);
 	boolean deleteDocument(int idDocument);
-	List<Document>getAllDocument();
-	Document getDocumentById(int idDocument);
+	List<DocumentModel>getAllDocument();
+	DocumentModel getDocumentById(int idDocument);
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import co.kozao.kotask.controllers.ProjectAccessController;
-import co.kozao.kotask.models.Project;
+import co.kozao.kotask.models.ProjectModel;
 import co.kozao.kotask.models.enums.ProjectStatus;
 
 public class ProjectView {
@@ -46,7 +46,7 @@ public class ProjectView {
 		int idProjectManager = scanner.nextInt();
 		scanner.nextLine();
 
-		Project project = projectController.createProject(names, projectKey, description, startDate, endDate, status,
+		ProjectModel project = projectController.createProject(names, projectKey, description, startDate, endDate, status,
 				idProjectManager);
 		if (project != null) {
 			System.out.println("Projet créé avec succès !");
@@ -62,7 +62,7 @@ public class ProjectView {
 		int idProject = scanner.nextInt();
 		scanner.nextLine();
 
-		Project projects = projectController.getProjectById(idProject);
+		ProjectModel projects = projectController.getProjectById(idProject);
 		if (projects != null) {
 
 			System.out.print("Nouveau nom : ");
@@ -118,12 +118,12 @@ public class ProjectView {
 
 	public void getAllProject() {
 
-		List<Project> project1 = projectController.getAllProjects();
+		List<ProjectModel> project1 = projectController.getAllProjects();
 		if (project1.isEmpty()) {
 			System.out.println("Aucun project trouvé.");
 		} else {
 			System.out.println("=== Liste des Projects ===");
-			for (Project p : project1) {
+			for (ProjectModel p : project1) {
 				System.out.printf(
 						"Identifiant project : %d | Nom : %s | Description : %s | Date debut : %s | Date fin : %s | Statut : %s | identifiant du chef de project : %d%n",
 						p.getIdProject(), p.getName(), p.getDescription(), p.getStartDate(), p.getEndDate(),

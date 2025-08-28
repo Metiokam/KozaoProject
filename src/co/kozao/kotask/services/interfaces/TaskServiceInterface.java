@@ -3,14 +3,14 @@ package co.kozao.kotask.services.interfaces;
 import java.util.List;
 
 //import co.kozao.kotask.models.Project;
-import co.kozao.kotask.models.Task;
+import co.kozao.kotask.models.TaskModel;
 
 public interface TaskServiceInterface {
 	
-	Task createTask(Task task);
-	boolean updateTask(Task task);
+	TaskModel createTask(TaskModel task);
+	boolean updateTask(TaskModel task);
 	boolean deleteTask(int idTask);
-	List<Task> getAllTask();
-    Task getTaskById(int task);
+	List<TaskModel> getAllTask();
+    TaskModel getTaskById(int task);
 
 }

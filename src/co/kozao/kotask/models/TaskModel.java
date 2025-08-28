@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import co.kozao.kotask.models.enums.PriorityTask;
 import co.kozao.kotask.models.enums.StatusTask;
 
-public class Task {
+public class TaskModel {
 	
 	private int idTask;
 	private String title;
@@ -21,12 +21,12 @@ public class Task {
 	private int idUser;
 	
 	
-	public Task() {
+	public TaskModel() {
 	
 	}
 
 
-	public Task(int idTask, String title, String description, StatusTask status, PriorityTask priority,
+	public TaskModel(int idTask, String title, String description, StatusTask status, PriorityTask priority,
 			LocalDate startDate, LocalDate endDate, int idProject, int idUser) {
 		
 		this.idTask = idTask;

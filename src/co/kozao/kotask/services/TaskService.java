@@ -1,4 +1,4 @@
-package co.kozao.kotask.services.implement;
+package co.kozao.kotask.services;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
-import co.kozao.kotask.models.Task;
+import co.kozao.kotask.models.TaskModel;
 import co.kozao.kotask.models.enums.PriorityTask;
 import co.kozao.kotask.models.enums.StatusTask;
 import co.kozao.kotask.services.connexion.DBConnection;
@@ -22,7 +22,7 @@ public class TaskService implements TaskServiceInterface {
 	private final String TABLE_NAME = "task";
 
 	@Override
-	public Task createTask(Task task) {
+	public TaskModel createTask(TaskModel task) {
 		String query = String.format(Contants.CREATED_TASKS, TABLE_NAME, "title", "description", "status", "priority",
 				"startDate", "endDate", "idProject", "idUser");
 		try {
@@ -50,7 +50,7 @@ public class TaskService implements TaskServiceInterface {
 	}
 
 	@Override
-	public boolean updateTask(Task task) {
+	public boolean updateTask(TaskModel task) {
 
 		String query = String.format(Contants.UPDATE_TASKS, TABLE_NAME, "title", "description", "status", "priority",
 				"startDate", "endDate", "idProject", "idUser","idTask");
@@ -90,8 +90,8 @@ public class TaskService implements TaskServiceInterface {
 	}
 
 	@Override
-	public List<Task> getAllTask() {
-		List<Task> tasks = new ArrayList<>();
+	public List<TaskModel> getAllTask() {
+		List<TaskModel> tasks = new ArrayList<>();
 		String query = String.format(Contants.GET_ALL_TASKS, TABLE_NAME);
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
@@ -99,7 +99,7 @@ public class TaskService implements TaskServiceInterface {
 
 			while (rs.next()) {
 				
-				Task task = new Task();
+				TaskModel task = new TaskModel();
 				task.setIdTask(rs.getInt("idTask"));
 				task.setTitle(rs.getString("title"));
 				task.setDescription(rs.getString("description"));
@@ -119,7 +119,7 @@ public class TaskService implements TaskServiceInterface {
 	}
 
 	@Override
-	public Task getTaskById(int idTask) {
+	public TaskModel getTaskById(int idTask) {
 
 		String query = String.format(Contants.GET_TASKS_BY_ID, TABLE_NAME, "idTask");
 
@@ -128,7 +128,7 @@ public class TaskService implements TaskServiceInterface {
 			ps.setInt(1, idTask);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Task task = new Task();
+				TaskModel task = new TaskModel();
 				task.setIdTask(rs.getInt("idTask"));
 				task.setTitle(rs.getString("title"));
 				task.setDescription(rs.getString("description"));

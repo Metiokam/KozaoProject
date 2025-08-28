@@ -1,4 +1,4 @@
-package co.kozao.kotask.services.implement;
+package co.kozao.kotask.services;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
-import co.kozao.kotask.models.Comment;
+import co.kozao.kotask.models.CommentModel;
 import co.kozao.kotask.services.connexion.DBConnection;
 import co.kozao.kotask.services.interfaces.CommentServiceInterface;
 import co.kozao.kotask.utils.Contants;
@@ -21,7 +21,7 @@ public class CommentService implements CommentServiceInterface {
 	private final String TABLE_NAME = "comment";
 
 	@Override
-	public Comment createComment(Comment comment) {
+	public CommentModel createComment(CommentModel comment) {
 
 		String query = String.format(Contants.CREATED_COMMENTS, TABLE_NAME, "message", "dateCreated",
 				"idAuthor", "idTask");
@@ -46,9 +46,9 @@ public class CommentService implements CommentServiceInterface {
 	}
 
 	@Override
-	public boolean updateComment(Comment comment) {
+	public boolean updateComment(CommentModel comment) {
 
-		String query = String.format(Contants.UPDATE_COMMENTS, TABLE_NAME, "idComment", "message", "dateCreated",
+		String query = String.format(Contants.UPDATE_COMMENTS, TABLE_NAME, "message", "dateCreated",
 				"idAuthor", "idTask", "idComment");
 
 		try (PreparedStatement ps = con.prepareStatement(query)) {
@@ -82,15 +82,15 @@ public class CommentService implements CommentServiceInterface {
 	}
 
 	@Override
-	public Comment getCommentById(int idComment) {
-		String query = String.format(Contants.GET_ALL_COMMENTS, TABLE_NAME, "idComment");
+	public CommentModel getCommentById(int idComment) {
+		String query = String.format(Contants.GET_COMMENTS_BY_ID, TABLE_NAME, "idComment");
 
 		try (PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setInt(1, idComment);
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				Comment comment = new Comment();
+				CommentModel comment = new CommentModel();
 				comment.setIdComment(rs.getInt("idComment"));
 				comment.setMessage(rs.getString("message"));
 				comment.setDateCreated(rs.getObject("dateCreated", LocalDate.class));
@@ -108,14 +108,14 @@ public class CommentService implements CommentServiceInterface {
 	}
 
 	@Override
-	public List<Comment> getAllComment() {
-		List<Comment> comment = new ArrayList<>();
+	public List<CommentModel> getAllComment() {
+		List<CommentModel> comment = new ArrayList<>();
 		String query = String.format(Contants.GET_ALL_COMMENTS, TABLE_NAME);
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Comment comments = new Comment();
+				CommentModel comments = new CommentModel();
 
 				comments.setIdComment(rs.getInt("idComment"));
 				comments.setMessage(rs.getString("message"));

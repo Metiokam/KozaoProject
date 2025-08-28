@@ -1,15 +1,21 @@
 package co.kozao.kotask.utils.actionvalidation;
 
-import co.kozao.kotask.models.Project;
+import co.kozao.kotask.models.ProjectModel;
+import org.apache.log4j.Logger;
 import java.time.LocalDate;
+//import co.kozao.kotask.services.ProjectService;
+
+//import java.time.LocalDate;
 //import java.util.HashSet;
 //import java.util.List;
 //import java.util.Set;
 
 public class ProjectActionValidationUtils {
+	
+	private static final Logger LOGGER = Logger.getLogger(ProjectActionValidationUtils.class);
 
     
-    public static boolean validate(Project project) throws IllegalArgumentException {
+    public static boolean validate(ProjectModel project) throws IllegalArgumentException {
         if (project == null) {
             throw new IllegalArgumentException("Project cannot be null.");
         }
@@ -53,6 +59,14 @@ public class ProjectActionValidationUtils {
         }
         
     }
+    
+    public static boolean validateidProject(int idProject) {
+		if (idProject <= 0) {
+			LOGGER.error("ID du project  invalide !");
+			return false;
+		}
+		return true;
+	}
     
     //private static void validateMembers(List<User> members) {
      //   if (members != null) {

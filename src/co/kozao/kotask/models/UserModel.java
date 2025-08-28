@@ -8,7 +8,7 @@ import co.kozao.kotask.models.enums.Role;
  * version 1.0
  *
  */
-public class User {
+public class UserModel {
 
 
 	private int idUser;
@@ -20,12 +20,12 @@ public class User {
 	private String password;
 	private String confirmPassword;
 
-	public User() {
-		super();
+	public UserModel() {
+		
 		
 	}
 
-	public User(int idUser, String name, String username, String email, int phoneNumber, Role role,
+	public UserModel(int idUser, String name, String username, String email, int phoneNumber, Role role,
 			String password, String confirmPassword) {
 		super();
 		this.idUser = idUser;

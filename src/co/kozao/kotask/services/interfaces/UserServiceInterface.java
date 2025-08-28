@@ -1,22 +1,22 @@
 package co.kozao.kotask.services.interfaces;
 
-import co.kozao.kotask.models.User;
+import co.kozao.kotask.models.UserModel;
 
 import java.util.List;
 
 public interface UserServiceInterface {
 	
-	User createUser(User user);
+	UserModel createUser(UserModel user);
 
-	User authenticate(String email, String password);
+	UserModel authenticate(String email, String password);
 
-	User getUserById(int idUser);
+	UserModel getUserById(int idUser);
 
-	boolean updateUser(User user);
+	boolean updateUser(UserModel user);
 
 	boolean deleteUser(int idUser);
 
-	List<User> getAllUsers();
+	List<UserModel> getAllUsers();
 	
-	User findByEmail(String email);
+	UserModel findByEmail(String email);
 }

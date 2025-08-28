@@ -1,4 +1,4 @@
-package co.kozao.kotask.services.implement;
+package co.kozao.kotask.services;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import co.kozao.kotask.models.Project;
+import co.kozao.kotask.models.ProjectModel;
 import co.kozao.kotask.models.enums.ProjectStatus;
 import co.kozao.kotask.services.interfaces.ProjectServiceInterface;
 import co.kozao.kotask.services.connexion.DBConnection;
@@ -23,15 +23,15 @@ public class ProjectService implements ProjectServiceInterface {
 	private final String TABLE_NAME = "project";
 
 	@Override
-	public List<Project> getAllProjects() {
+	public List<ProjectModel> getAllProjects() {
 
-		List<Project> project = new ArrayList<>();
+		List<ProjectModel> project = new ArrayList<>();
 		String query = String.format(Contants.GET_ALL_PROJECTS, TABLE_NAME);
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Project project1 = new Project();
+				ProjectModel project1 = new ProjectModel();
 
 				project1.setIdProject(rs.getInt("idProject"));
 				project1.setName(rs.getString("name"));
@@ -52,7 +52,7 @@ public class ProjectService implements ProjectServiceInterface {
 	}
 
 	@Override
-	public Project createProject(Project project) {
+	public ProjectModel createProject(ProjectModel project) {
 
 		String query = String.format(Contants.CREATED_PROJECTS, TABLE_NAME, "name", "projectKey", "description",
 				"startDate", "endDate", "status", "projectManagerId");
@@ -81,7 +81,7 @@ public class ProjectService implements ProjectServiceInterface {
 	}
 
 	@Override
-	public boolean updateProject(Project project) {
+	public boolean updateProject(ProjectModel project) {
 
 		String query = String.format(Contants.UPDATE__PROJECTS, TABLE_NAME, "name", "projectKey", "description",
 				"startDate", "endDate", "status", "projectManagerId");
@@ -118,7 +118,7 @@ public class ProjectService implements ProjectServiceInterface {
 	}
 
 	@Override
-	public Project getProjectById(int idProject) {
+	public ProjectModel getProjectById(int idProject) {
 		String query = String.format(Contants.GET_PROJECT_BY_ID, TABLE_NAME, "idProject");
 
 		try (PreparedStatement ps = con.prepareStatement(query)) {
@@ -126,7 +126,7 @@ public class ProjectService implements ProjectServiceInterface {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				Project project = new Project();
+				ProjectModel project = new ProjectModel();
 				project.setIdProject(rs.getInt("idProject"));
 				project.setName(rs.getString("name"));
 				project.setProjectKey(rs.getString("projectKey"));

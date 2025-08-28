@@ -4,7 +4,7 @@ import java.time.LocalDate;
 //import java.util.List;
 import co.kozao.kotask.models.enums.ProjectStatus;
 
-public class Project {
+public class ProjectModel {
     private int idProject;
     private String name;           
     private String projectKey;     
@@ -15,11 +15,11 @@ public class Project {
     private int idProjectManager;   
    
     
-	public Project() {
+	public ProjectModel() {
 		
 	}
 
-	public Project(int idProject, String name, String projectKey, String description, LocalDate startDate, LocalDate endDate,
+	public ProjectModel(int idProject, String name, String projectKey, String description, LocalDate startDate, LocalDate endDate,
 			ProjectStatus status, int idProjectManager) {
 		super();
 		this.idProject = idProject;

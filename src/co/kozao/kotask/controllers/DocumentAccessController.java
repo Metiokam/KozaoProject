@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import co.kozao.kotask.models.Document;
-import co.kozao.kotask.services.implement.DocumentService;
+import co.kozao.kotask.models.DocumentModel;
+import co.kozao.kotask.services.DocumentService;
 import co.kozao.kotask.services.interfaces.DocumentServiceInterface;
 
 public class DocumentAccessController {
@@ -14,10 +14,10 @@ public class DocumentAccessController {
 
 	private static final Logger LOGGER = Logger.getLogger(DocumentAccessController.class);
 
-	public Document addDocument(String documentName, String documentPath, LocalDate dateAdded, int idAuthor,
+	public DocumentModel addDocument(String documentName, String documentPath, LocalDate dateAdded, int idAuthor,
 			int idProject, int idTask) {
 
-		Document document = new Document();
+		DocumentModel document = new DocumentModel();
 
 		document.setDocumentName(documentName);
 		document.setDocumentPath(documentPath);
@@ -30,7 +30,7 @@ public class DocumentAccessController {
 
 		try {
 
-			Document addDocument = documentService.addDocument(document);
+			DocumentModel addDocument = documentService.addDocument(document);
 
 			if (addDocument != null) {
 
@@ -51,9 +51,7 @@ public class DocumentAccessController {
 	public boolean deleteDocument(int idDocument) {
 		try {
 
-			documentService.deleteDocument(idDocument);
-
-			return true;
+			return documentService.deleteDocument(idDocument);
 
 		} catch (Exception e) {
 
@@ -65,7 +63,7 @@ public class DocumentAccessController {
 
 	}
 
-	public List<Document> getAllDocument() {
+	public List<DocumentModel> getAllDocument() {
 
 		try {
 			return documentService.getAllDocument();
@@ -76,7 +74,7 @@ public class DocumentAccessController {
 		}
 	}
 
-	public Document getDocumentById(int idDocument) {
+	public DocumentModel getDocumentById(int idDocument) {
 
 		try {
 			return documentService.getDocumentById(idDocument);

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import co.kozao.kotask.controllers.UserAccessController;
-import co.kozao.kotask.models.User;
+import co.kozao.kotask.models.UserModel;
 import co.kozao.kotask.models.enums.Role;
 
 public class UserView {
@@ -41,7 +41,7 @@ public class UserView {
 			System.out.println("Les mots de passe ne correspondent pas !");
 			return;
 		}
-		User user1 = controller.createUser(name, username, email1, phoneNumber, role, password1, confirmPassword);
+		UserModel user1 = controller.createUser(name, username, email1, phoneNumber, role, password1, confirmPassword);
 		if (user1 != null) {
 			System.out.println("Compte créé avec succès !");
 		} else {
@@ -55,7 +55,7 @@ public class UserView {
 		int idUser = scanner.nextInt();
 		scanner.nextLine();
 
-		User user = controller.getUserById(idUser);
+		UserModel user = controller.getUserById(idUser);
 		if (user != null) {
 			System.out.print("Nouveau nom : ");
 			user.setName(scanner.nextLine());
@@ -99,12 +99,12 @@ public class UserView {
 
 	public void getAllUsers() {
 
-		List<User> users = controller.getAllUsers();
+		List<UserModel> users = controller.getAllUsers();
 		if (users.isEmpty()) {
 			System.out.println("Aucun utilisateur trouvé.");
 		} else {
 			System.out.println("=== Liste des utilisateurs ===");
-			for (User u : users) {
+			for (UserModel u : users) {
 				System.out.printf("ID: %d | Nom: %s | Prénom: %s | Email: %s | Téléphone: %d | Rôle: %s%n",
 						u.getIdUser(), u.getName(), u.getUsername(), u.getEmail(), u.getPhoneNumber(), u.getRole());
 			}

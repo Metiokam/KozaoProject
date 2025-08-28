@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import co.kozao.kotask.controllers.DocumentAccessController;
-import co.kozao.kotask.models.Document;
+import co.kozao.kotask.models.DocumentModel;
 
 public class DocumentView {
 
@@ -39,7 +39,7 @@ public class DocumentView {
 		int idTask = scanner.nextInt();
 		scanner.nextLine();
 
-		Document documents = documentController.addDocument(documentName, documentPath, dateAdded, idAuthor, idProject,
+		DocumentModel documents = documentController.addDocument(documentName, documentPath, dateAdded, idAuthor, idProject,
 				idTask);
 
 		if (documents != null) {
@@ -69,7 +69,7 @@ public class DocumentView {
 		int idDocument = scanner.nextInt();
 		scanner.nextLine();
 
-		Document documents = documentController.getDocumentById(idDocument);
+		DocumentModel documents = documentController.getDocumentById(idDocument);
 
 		if (documents != null) {
 
@@ -82,12 +82,12 @@ public class DocumentView {
 
 	public void getAllDocument() {
 
-		List<Document> document = documentController.getAllDocument();
+		List<DocumentModel> document = documentController.getAllDocument();
 		if (document.isEmpty()) {
 			System.out.println("Aucun document trouvé.");
 		} else {
 			System.out.println("=== Liste des Documents ===");
-			for (Document doc : document) {
+			for (DocumentModel doc : document) {
 				System.out.printf(
 						"Identifiant du document : %d | le nom du document : %s | lien du document : %s | Date d'ajout : %s | identifiant de l'auteur : %d | identifiant du projet : %d| identifiant de la tache : %d%n",
 						doc.getIdDocument(), doc.getDocumentName(), doc.getDocumentPath(), doc.getDateAdded(),

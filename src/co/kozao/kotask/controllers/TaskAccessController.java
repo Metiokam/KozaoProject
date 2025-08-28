@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import co.kozao.kotask.models.Task;
+import co.kozao.kotask.models.TaskModel;
 import co.kozao.kotask.models.enums.PriorityTask;
 import co.kozao.kotask.models.enums.StatusTask;
-import co.kozao.kotask.services.implement.TaskService;
+import co.kozao.kotask.services.TaskService;
 import co.kozao.kotask.services.interfaces.TaskServiceInterface;
 
 
@@ -18,9 +18,9 @@ public class TaskAccessController {
 	private TaskServiceInterface taskService = new TaskService();
 	private static final Logger LOGGER = Logger.getLogger(TaskAccessController.class);
 
-	public Task createTask(String title, String description, StatusTask status, PriorityTask priority,
+	public TaskModel createTask(String title, String description, StatusTask status, PriorityTask priority,
 			LocalDate startDate, LocalDate endDate, int idProject, int idUser) {
-		Task task = new Task();
+		TaskModel task = new TaskModel();
 		task.setTitle(title);
 		task.setDescription(description);
 		task.setStatus(status);
@@ -34,7 +34,7 @@ public class TaskAccessController {
 
 			// ProjectActionValidationUtils.validate(task);
 
-			Task createTask = taskService.createTask(task);
+			TaskModel createTask = taskService.createTask(task);
 
 			if (createTask != null) {
 				LOGGER.info("Tache créé avec succès : " + createTask);
@@ -50,7 +50,7 @@ public class TaskAccessController {
 		}
 	}
 
-	public boolean updateTask(Task task) {
+	public boolean updateTask(TaskModel task) {
 		try {
 			return taskService.updateTask(task);
 		} catch (Exception e) {
@@ -69,7 +69,7 @@ public class TaskAccessController {
 		return false;
 	}
 
-	public List<Task> getAllTask() {
+	public List<TaskModel> getAllTask() {
 		try {
 			return taskService.getAllTask();
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class TaskAccessController {
 		}
 	}
 
-	public Task getTaskById(int idTask) {
+	public TaskModel getTaskById(int idTask) {
 		try {
 			return taskService.getTaskById(idTask);
 

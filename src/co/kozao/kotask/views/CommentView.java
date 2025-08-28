@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 import co.kozao.kotask.controllers.CommentAccesController;
-import co.kozao.kotask.models.Comment;
+import co.kozao.kotask.models.CommentModel;
 
 public class CommentView {
 
@@ -34,7 +34,7 @@ public class CommentView {
 		int idTask = scanner.nextInt();
 		scanner.nextLine();
 
-		Comment comments = commentController.createComment(message, dateCreated, idAuthor, idTask);
+		CommentModel comments = commentController.createComment(message, dateCreated, idAuthor, idTask);
 
 		if (comments != null) {
 			System.out.println("Commentaire créé avec succès !");
@@ -50,11 +50,11 @@ public class CommentView {
 		int idComment = scanner.nextInt();
 		scanner.nextLine();
 
-		Comment comments = commentController.getCommentById(idComment);
+		CommentModel comments = commentController.getCommentById(idComment);
 
 		if (comments != null) {
 
-			System.out.print("Nouveau commentaire : : ");
+			System.out.print("Nouveau commentaire : ");
 			comments.setMessage(scanner.nextLine());
 
 			DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -64,10 +64,10 @@ public class CommentView {
 			LocalDate dateCreated = LocalDate.parse(dateCreateds, formatters);
 			comments.setDateCreated(dateCreated);
 
-			System.out.print("Nouveau chef project : ");
+			System.out.print("Identifant de l'auteur : ");
 			comments.setIdAuthor(scanner.nextInt());
 
-			System.out.print("Nouveau chef project : ");
+			System.out.print("Identifiant de la tache : ");
 			comments.setIdTask(scanner.nextInt());
 
 			if (commentController.updateComment(comments)) {
@@ -97,12 +97,12 @@ public class CommentView {
 
 	public void getAllComment() {
 
-		List<Comment> comment = commentController.getAllComment();
+		List<CommentModel> comment = commentController.getAllComment();
 		if (comment.isEmpty()) {
 			System.out.println("Aucun commentaire trouvé.");
 		} else {
 			System.out.println("=== Liste des Commentaires ===");
-			for (Comment com : comment) {
+			for (CommentModel com : comment) {
 				System.out.printf(
 						"Identifiant du commentaire : %d | Message : %s | Date de creaction : %s | identifiant de l'auteur : %d| identifiant de la tache : %d%n",
 						com.getIdComment(), com.getMessage(), com.getDateCreated(), com.getIdAuthor(), com.getIdTask());

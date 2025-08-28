@@ -5,7 +5,7 @@ import java.util.Scanner;
 import co.kozao.kotask.controllers.ProjectAccessController;
 import co.kozao.kotask.controllers.TaskAccessController;
 import co.kozao.kotask.controllers.UserAccessController;
-import co.kozao.kotask.models.User;
+import co.kozao.kotask.models.UserModel;
 
 public class UserLogin {
 
@@ -22,7 +22,7 @@ public class UserLogin {
 		System.out.print("Mot de passe : ");
 		String password = scanner.nextLine();
 
-		User user = controller.authenticate(email, password);
+		UserModel user = controller.authenticate(email, password);
 		if (user != null) {
 			if (user.getRole() == null) {
 				System.out.println("Rôle non défini pour cet utilisateur !");

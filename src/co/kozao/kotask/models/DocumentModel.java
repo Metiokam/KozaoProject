@@ -3,7 +3,7 @@ package co.kozao.kotask.models;
 
 import java.time.LocalDate;
 
-public class Document {
+public class DocumentModel {
 	
 	private int idDocument;
 	private String documentName;
@@ -14,12 +14,12 @@ public class Document {
 	private int idTask;
 	
 	
-	public Document() {
+	public DocumentModel() {
 		
 	}
 
 
-	public Document(int idDocument, String documentName, String documentPath, LocalDate dateAdded, int idAuthor,
+	public DocumentModel(int idDocument, String documentName, String documentPath, LocalDate dateAdded, int idAuthor,
 			int idProject, int idTask) {
 		
 		this.idDocument = idDocument;

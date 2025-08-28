@@ -1,4 +1,4 @@
-package co.kozao.kotask.services.implement;
+package co.kozao.kotask.services;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ import org.mindrot.jbcrypt.BCrypt;
 //import co.kozao.kotask.dao.UserDAO;
 //import co.kozao.kotask.dao.UserDAOImpl;
 import co.kozao.kotask.models.enums.Role;
-import co.kozao.kotask.models.User;
+import co.kozao.kotask.models.UserModel;
 import co.kozao.kotask.services.connexion.DBConnection;
 import co.kozao.kotask.services.interfaces.UserServiceInterface;
 import co.kozao.kotask.utils.Contants;
@@ -27,7 +27,7 @@ public class UserService implements UserServiceInterface {
 	// private UserDAO userDAO = new UserDAOImpl();
 
 	@Override
-	public User createUser(User user) {
+	public UserModel createUser(UserModel user) {
 
 		try {
 			//StopWatch watch1 = new StopWatch();
@@ -53,7 +53,7 @@ public class UserService implements UserServiceInterface {
 
 	}
 
-	public User createUser1(User user) {
+	public UserModel createUser1(UserModel user) {
 		String query = String.format(Contants.CREATED_USERS, TABLE_NAME, "name", "username", "email", "phoneNumber",
 				"role", "password", "confirmPassword");
 		try (PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -79,12 +79,12 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public User authenticate(String email, String password) {
+	public UserModel authenticate(String email, String password) {
 		if (!UserActionValidationUtils.validateLogin(email, password)) {
 			LOGGER.error("Login invalide.");
 			return null;
 		}
-		User user = findByEmail(email);
+		UserModel user = findByEmail(email);
 		if (user != null && BCrypt.checkpw(password, user.getPassword())) {
 			return user;
 		}
@@ -95,20 +95,19 @@ public class UserService implements UserServiceInterface {
 
 	@Override
 
-	public User getUserById(int idUser) {
+	public UserModel getUserById(int idUser) {
 		String query = String.format(Contants.GET_USER_BY_ID, TABLE_NAME, "idUser");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setInt(1, idUser);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				User user = new User();
+				UserModel user = new UserModel();
 				user.setIdUser(rs.getInt("idUser"));
 				user.setName(rs.getString("name"));
 				user.setUsername(rs.getString("username"));
 				user.setEmail(rs.getString("email"));
 				user.setPhoneNumber(rs.getInt("phoneNumber"));
 				user.setRole(Role.valueOf(rs.getString("role")));
-				//Role.valueOf(rs.getString("role"));
 				user.setPassword(rs.getString("password"));
 				user.setConfirmPassword(rs.getString("confirmPassword"));
 				
@@ -121,13 +120,13 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public User findByEmail(String email) {
+	public UserModel findByEmail(String email) {
 		String query = String.format(Contants.GET_USER_BY_EMAIL, TABLE_NAME, "email");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				User user = new User();
+				UserModel user = new UserModel();
 				user.setIdUser(rs.getInt("idUser"));
 				user.setName(rs.getString("name"));
 				user.setUsername(rs.getString("username"));
@@ -149,7 +148,7 @@ public class UserService implements UserServiceInterface {
 	
 
 	@Override
-	public boolean updateUser(User user) {
+	public boolean updateUser(UserModel user) {
 
 		if (!UserActionValidationUtils.validateUser(user)) {
 			LOGGER.error("Validation échouée. Modification impossible.");
@@ -198,14 +197,14 @@ public class UserService implements UserServiceInterface {
 	
 
 	@Override
-	public List<User> getAllUsers() {
-		List<User> users = new ArrayList<>();
+	public List<UserModel> getAllUsers() {
+		List<UserModel> users = new ArrayList<>();
 		String query = String.format(Contants.GET_ALL_USERS, TABLE_NAME);
 		try (PreparedStatement ps = con.prepareStatement(query); 
 				ResultSet rs = ps.executeQuery()) {
 			while (rs.next()) {
 
-				User user = new User();
+				UserModel user = new UserModel();
 				user.setIdUser(rs.getInt("idUser"));
 				user.setName(rs.getString("name"));
 				user.setUsername(rs.getString("username"));
