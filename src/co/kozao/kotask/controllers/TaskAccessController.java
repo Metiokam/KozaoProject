@@ -19,7 +19,7 @@ public class TaskAccessController {
 	private static final Logger LOGGER = Logger.getLogger(TaskAccessController.class);
 
 	public TaskModel createTask(String title, String description, StatusTask status, PriorityTask priority,
-			LocalDate startDate, LocalDate endDate, int idProject, int idUser) {
+			LocalDate startDate, LocalDate endDate, String projectKey, String userName) {
 		TaskModel task = new TaskModel();
 		task.setTitle(title);
 		task.setDescription(description);
@@ -27,8 +27,8 @@ public class TaskAccessController {
 		task.setPriority(priority);
 		task.setStartDate(startDate);
 		task.setEndDate(endDate);
-		task.setIdProject(idProject);
-		task.setIdUser(idUser);
+		task.setProjectKey(projectKey);;
+		task.setUserName(userName);
 
 		try {
 

@@ -41,13 +41,13 @@ public class TaskView {
 		LocalDate endDate = LocalDate.parse(endDateStr, formatter);
 		scanner.nextLine();
 
-		System.out.print("Identifiant Du project : ");
-		int idProject = Integer.parseInt(scanner.nextLine());
+		System.out.print("Entrer la clé Du project : ");
+		String projectKey = scanner.nextLine();
 
-		System.out.print("Identifiant De l'utilisateur project : ");
-		int idUser = Integer.parseInt(scanner.nextLine());
+		System.out.print("Entrer le nom De l'utilisateur de la tache : ");
+		String userName = scanner.nextLine();
 
-		TaskModel task = taskController.createTask(title, descriptions, status, priority, startDate, endDate, idProject, idUser);
+		TaskModel task = taskController.createTask(title, descriptions, status, priority, startDate, endDate, projectKey, userName);
 		if (task != null) {
 			System.out.println("Task créé avec succès !");
 		} else {
@@ -89,11 +89,11 @@ public class TaskView {
 			LocalDate endDate = LocalDate.parse(endDateS, formatters);
 			tasks.setEndDate(endDate);
 
-			System.out.print("Nouveau identifiant du project : ");
-			tasks.setIdProject(scanner.nextInt());
+			System.out.print("Nouvelle clé du project : ");
+			tasks.setProjectKey(scanner.nextLine());
 
-			System.out.print("Nouveau utilisateur : ");
-			tasks.setIdUser(scanner.nextInt());
+			System.out.print("Nouveau nom d'utilisateur : ");
+			tasks.setUserName(scanner.nextLine());
 
 			if (taskController.updateTask(tasks)) {
 				System.out.println("Tache mis à jour !");
@@ -129,9 +129,9 @@ public class TaskView {
 			System.out.println("=== Liste des Taches ===");
 			for (TaskModel t : task1) {
 				System.out.printf(
-						"Identifiant tache: %d | Titre: %s | Descritpion: %s | Satut: %s | Priorité: %s | Date debut : %s | Date fin: %s | Identifiant projet: %d| Identifiant utilisateur: %d%n",
+						"Identifiant tache: %d | Titre: %s | Descritpion: %s | Satut: %s | Priorité: %s | Date debut : %s | Date fin: %s | Identifiant projet: %d|| clé du  projet: %s| Identifiant utilisateur: %d| le nom de l'utilisateur: %s%n",
 						t.getIdTask(), t.getTitle(), t.getDescription(), t.getStatus(), t.getPriority(),
-						t.getStartDate(), t.getEndDate(), t.getIdProject(), t.getIdUser());
+						t.getStartDate(), t.getEndDate(), t.getIdProject(),t.getProjectKey(), t.getIdUser(),t.getUserName());
 			}
 		}
 

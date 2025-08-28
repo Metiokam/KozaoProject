@@ -18,7 +18,7 @@ public class ProjectAccessController {
 	private static final Logger LOGGER = Logger.getLogger(ProjectAccessController.class);
 
 	public ProjectModel createProject(String name, String projectKey, String description, LocalDate startDate,
-			LocalDate endDate, ProjectStatus status, int idProjectManager) {
+			LocalDate endDate, ProjectStatus status, String projectManagerName) {
 		ProjectModel project = new ProjectModel();
 		project.setName(name);
 		project.setProjectKey(projectKey);
@@ -26,7 +26,7 @@ public class ProjectAccessController {
 		project.setStartDate(startDate);
 		project.setEndDate(endDate);
 		project.setStatus(status);
-		project.setIdProjectManager(idProjectManager);
+		project.setProjectManagerName(projectManagerName);
 		
 		LOGGER.info("Tentative de création du projet : " + project);
 

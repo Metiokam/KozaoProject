@@ -11,7 +11,8 @@ public class ProjectModel {
     private String description;
     private LocalDate startDate;   
     private LocalDate endDate;     
-    private ProjectStatus status;  
+    private ProjectStatus status; 
+    private String projectManagerName;
     private int idProjectManager;   
    
     
@@ -20,7 +21,7 @@ public class ProjectModel {
 	}
 
 	public ProjectModel(int idProject, String name, String projectKey, String description, LocalDate startDate, LocalDate endDate,
-			ProjectStatus status, int idProjectManager) {
+			ProjectStatus status,String projectManagerName, int idProjectManager) {
 		super();
 		this.idProject = idProject;
 		this.name = name;
@@ -29,6 +30,7 @@ public class ProjectModel {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.status = status;
+		this.projectManagerName= projectManagerName;
 		this.idProjectManager = idProjectManager;
 		//this.members = members;
 		//this.task = task;
@@ -89,6 +91,15 @@ public class ProjectModel {
 	public void setStatus(ProjectStatus status) {
 		this.status = status;
 	}
+	
+	public String getProjectManagerName() {
+		return projectManagerName;
+	}
+	
+	public void setProjectManagerName(String projectManagerName) {
+		this.projectManagerName = projectManagerName;
+	}
+	
 
 	public int getIdProjectManager() {
 		return idProjectManager;

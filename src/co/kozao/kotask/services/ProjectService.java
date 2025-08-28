@@ -27,6 +27,7 @@ public class ProjectService implements ProjectServiceInterface {
 
 		List<ProjectModel> project = new ArrayList<>();
 		String query = String.format(Contants.GET_ALL_PROJECTS, TABLE_NAME);
+
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
@@ -42,6 +43,8 @@ public class ProjectService implements ProjectServiceInterface {
 				project1.setStatus(ProjectStatus.valueOf(rs.getString("status")));
 				project1.setIdProjectManager(rs.getInt("projectManagerId"));
 
+				project1.setProjectManagerName(rs.getString("managerName"));
+
 				project.add(project1);
 			}
 
@@ -52,13 +55,16 @@ public class ProjectService implements ProjectServiceInterface {
 	}
 
 	@Override
-	public ProjectModel createProject(ProjectModel project) {
+	public ProjectModel createProject(ProjectModel project) throws SQLException {
+
+		int managerId = getUserIdByName(project.getProjectManagerName());
+		project.setIdProjectManager(managerId);
 
 		String query = String.format(Contants.CREATED_PROJECTS, TABLE_NAME, "name", "projectKey", "description",
 				"startDate", "endDate", "status", "projectManagerId");
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
-			
+
 			ps.setString(1, project.getName());
 			ps.setString(2, project.getProjectKey());
 			ps.setString(3, project.getDescription());
@@ -66,7 +72,6 @@ public class ProjectService implements ProjectServiceInterface {
 			ps.setObject(5, project.getEndDate());
 			ps.setString(6, project.getStatus().name());
 			ps.setInt(7, project.getIdProjectManager());
-			
 
 			if (ps.executeUpdate() > 0) {
 
@@ -74,14 +79,17 @@ public class ProjectService implements ProjectServiceInterface {
 			}
 
 		} catch (SQLException e) {
-			LOGGER.error("Erreur lors de la creation du projet " , e);
+			LOGGER.error("Erreur lors de la creation du projet ", e);
 		}
 		return null;
 
 	}
 
 	@Override
-	public boolean updateProject(ProjectModel project) {
+	public boolean updateProject(ProjectModel project) throws SQLException {
+
+		int managerId = getUserIdByName(project.getProjectManagerName());
+		project.setIdProjectManager(managerId);
 
 		String query = String.format(Contants.UPDATE__PROJECTS, TABLE_NAME, "name", "projectKey", "description",
 				"startDate", "endDate", "status", "projectManagerId");
@@ -103,14 +111,14 @@ public class ProjectService implements ProjectServiceInterface {
 	}
 
 	@Override
-	public boolean deleteProject(int idProject) {
+	public boolean deleteProject(int idProject) throws SQLException {
 
 		String query = String.format(Contants.DELETE__PROJECTS, TABLE_NAME, "idProject");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setInt(1, idProject);
-			
+
 			return ps.executeUpdate() > 0;
-			
+
 		} catch (SQLException e) {
 			LOGGER.error("Erreur lors de la suppression d'un project : " + e.getMessage());
 		}
@@ -118,7 +126,8 @@ public class ProjectService implements ProjectServiceInterface {
 	}
 
 	@Override
-	public ProjectModel getProjectById(int idProject) {
+	public ProjectModel getProjectById(int idProject) throws SQLException {
+
 		String query = String.format(Contants.GET_PROJECT_BY_ID, TABLE_NAME, "idProject");
 
 		try (PreparedStatement ps = con.prepareStatement(query)) {
@@ -145,4 +154,16 @@ public class ProjectService implements ProjectServiceInterface {
 		return null;
 	}
 
+	public int getUserIdByName(String name) throws SQLException {
+		String query = "SELECT idUser FROM users WHERE name = ?";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(1, name);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt("idUser");
+				}
+			}
+		}
+		throw new SQLException("Aucun utilisateur trouvé avec ce nom : " + name);
+	}
 }

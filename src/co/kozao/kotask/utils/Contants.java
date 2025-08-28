@@ -23,7 +23,8 @@ public class Contants {
 
 	public static final String CREATED_PROJECTS = "INSERT INTO %s ( %s, %s, %s, %s, %s, %s, %s)"
 			+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
-	public static final String GET_ALL_PROJECTS = "SELECT * FROM %s";
+	public static final String GET_ALL_PROJECTS = "SELECT p.*, u.name AS managerName FROM %s p "
+			+ "JOIN users u ON p.projectManagerId = u.idUser";
 	public static final String DELETE__PROJECTS = "DELETE FROM %s WHERE %s = ?";
 	public static final String UPDATE__PROJECTS = "UPDATE %s SET  %s=?, %s=?, %s=?, %s=? , %s=? , %s=? , %s=?  WHERE %s = ?";
 	public static final String GET_PROJECT_BY_ID = "SELECT * FROM %s WHERE %s = ?";
@@ -34,7 +35,10 @@ public class Contants {
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_TASKS = "DELETE FROM %s WHERE %s = ?";
 	public static final String UPDATE_TASKS = "UPDATE %s SET  %s=?, %s=?, %s=?, %s=? , %s=? , %s=? , %s=? , %s=? WHERE %s = ?";
-	public static final String GET_ALL_TASKS = "SELECT * FROM %s";
+
+	public static final String GET_ALL_TASKS = "SELECT t.*, p.projectKey, u.name AS userName " + "FROM %s t "
+			+ "JOIN project p ON t.idProject = p.idProject " + "JOIN users u ON t.idUser = u.idUser";
+
 	public static final String GET_TASKS_BY_ID = "SELECT * FROM %s WHERE %s = ?";
 
 	// Comments
@@ -44,22 +48,20 @@ public class Contants {
 	public static final String UPDATE_COMMENTS = "UPDATE %s SET  %s=?, %s=?, %s=?, %s=?   WHERE %s = ?";
 	public static final String GET_ALL_COMMENTS = "SELECT * FROM %s";
 	public static final String GET_COMMENTS_BY_ID = "SELECT * FROM %s WHERE %s = ?";
-	
-	//Document
-	
+
+	// Document
+
 	public static final String CREATED_DOCUMENTS = "INSERT INTO %s (%s,%s, %s, %s, %s,%s)" + "VALUES(?, ?, ?, ?, ?,?)";
 	public static final String DELETE_DOCUMENTS = "DELETE FROM %s WHERE %s = ?";
 	public static final String GET_ALL_DOCUMENTS = "SELECT * FROM %s";
 	public static final String GET_DOCUMENTS_BY_ID = "SELECT * FROM %s WHERE %s = ?";
-	
-	
-	//Notifiactions
-	
-	public static final String CREATED_NOTIFICTIONS = "INSERT INTO %s (%s,%s, %s, %s, %s,%s,%s)" + "VALUES(?, ?, ?, ?, ?,?,?)";
-	public static final String GET_ALL_NOTIFICTIONS = "SELECT * FROM %s";
-	//public static final String UPDATE_NOTIFICTIONS = "UPDATE %s SET %s=? WHERE %s=?";
-	
-	
-	
-}
 
+	// Notifiactions
+
+	public static final String CREATED_NOTIFICTIONS = "INSERT INTO %s (%s,%s, %s, %s, %s,%s,%s)"
+			+ "VALUES(?, ?, ?, ?, ?,?,?)";
+	public static final String GET_ALL_NOTIFICTIONS = "SELECT * FROM %s";
+	// public static final String UPDATE_NOTIFICTIONS = "UPDATE %s SET %s=? WHERE
+	// %s=?";
+
+}

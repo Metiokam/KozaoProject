@@ -41,13 +41,12 @@ public class ProjectView {
 		ProjectStatus status = ProjectStatus.valueOf(scanner.nextLine().toUpperCase());
 		// ProjectStatus status = ProjectStatus.valueOf(input.trim().toUpperCase());
 
-		System.out.print("Identifiant Du chef de project : ");
+		System.out.print("Le nom Du chef de project : ");
 
-		int idProjectManager = scanner.nextInt();
-		scanner.nextLine();
+		String projectManagerName = scanner.nextLine();
 
-		ProjectModel project = projectController.createProject(names, projectKey, description, startDate, endDate, status,
-				idProjectManager);
+		ProjectModel project = projectController.createProject(names, projectKey, description, startDate, endDate,
+				status, projectManagerName);
 		if (project != null) {
 			System.out.println("Projet créé avec succès !");
 		} else {
@@ -89,8 +88,8 @@ public class ProjectView {
 			System.out.print("Nouveau statut ( EN ATTENTE,EN COURS, TERMINER) : ");
 			projects.setStatus(ProjectStatus.valueOf(scanner.nextLine()));
 
-			System.out.print("Nouveau chef project : ");
-			projects.setIdProjectManager(scanner.nextInt());
+			System.out.print("Nouveau  chef project : ");
+			projects.setProjectManagerName(scanner.nextLine());
 
 			if (projectController.updateProject(projects)) {
 				System.out.println("Projet mis à jour !");
@@ -125,9 +124,9 @@ public class ProjectView {
 			System.out.println("=== Liste des Projects ===");
 			for (ProjectModel p : project1) {
 				System.out.printf(
-						"Identifiant project : %d | Nom : %s | Description : %s | Date debut : %s | Date fin : %s | Statut : %s | identifiant du chef de project : %d%n",
+						"Identifiant project : %d | Nom : %s | Description : %s | Date debut : %s | Date fin : %s | Statut : %s |Le nom du chef de project  : %s | identifiant du chef de project : %d%n",
 						p.getIdProject(), p.getName(), p.getDescription(), p.getStartDate(), p.getEndDate(),
-						p.getStatus(), p.getIdProjectManager());
+						p.getStatus(), p.getProjectManagerName(), p.getIdProjectManager());
 			}
 		}
 

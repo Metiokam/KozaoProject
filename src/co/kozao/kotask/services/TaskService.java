@@ -22,7 +22,14 @@ public class TaskService implements TaskServiceInterface {
 	private final String TABLE_NAME = "task";
 
 	@Override
-	public TaskModel createTask(TaskModel task) {
+	public TaskModel createTask(TaskModel task) throws SQLException {
+
+		int idUser = getUserIdByName(task.getUserName());
+		task.setIdUser(idUser);
+
+		int idProject = getProjectIdByProjectKey(task.getProjectKey());
+		task.setIdProject(idProject);
+		
 		String query = String.format(Contants.CREATED_TASKS, TABLE_NAME, "title", "description", "status", "priority",
 				"startDate", "endDate", "idProject", "idUser");
 		try {
@@ -37,7 +44,7 @@ public class TaskService implements TaskServiceInterface {
 			ps.setInt(8, task.getIdUser());
 
 			if (ps.executeUpdate() > 0) {
-				
+
 				return task;
 
 			}
@@ -50,10 +57,16 @@ public class TaskService implements TaskServiceInterface {
 	}
 
 	@Override
-	public boolean updateTask(TaskModel task) {
+	public boolean updateTask(TaskModel task) throws SQLException {
+		
+		int idUser = getUserIdByName(task.getUserName());
+		task.setIdUser(idUser);
+
+		int idProject = getProjectIdByProjectKey(task.getProjectKey());
+		task.setIdProject(idProject);
 
 		String query = String.format(Contants.UPDATE_TASKS, TABLE_NAME, "title", "description", "status", "priority",
-				"startDate", "endDate", "idProject", "idUser","idTask");
+				"startDate", "endDate", "idProject", "idUser", "idTask");
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, task.getTitle());
@@ -76,7 +89,7 @@ public class TaskService implements TaskServiceInterface {
 	}
 
 	@Override
-	public boolean deleteTask(int idTask) {
+	public boolean deleteTask(int idTask) throws SQLException {
 
 		String query = String.format(Contants.DELETE_TASKS, TABLE_NAME, "idTask");
 		try {
@@ -90,7 +103,7 @@ public class TaskService implements TaskServiceInterface {
 	}
 
 	@Override
-	public List<TaskModel> getAllTask() {
+	public List<TaskModel> getAllTask() throws SQLException {
 		List<TaskModel> tasks = new ArrayList<>();
 		String query = String.format(Contants.GET_ALL_TASKS, TABLE_NAME);
 		try {
@@ -98,7 +111,7 @@ public class TaskService implements TaskServiceInterface {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				
+
 				TaskModel task = new TaskModel();
 				task.setIdTask(rs.getInt("idTask"));
 				task.setTitle(rs.getString("title"));
@@ -110,6 +123,9 @@ public class TaskService implements TaskServiceInterface {
 				task.setIdProject(rs.getInt("idProject"));
 				task.setIdUser(rs.getInt("idUser"));
 				
+				task.setProjectKey(rs.getString("projectKey"));
+				task.setUserName(rs.getString("userName"));
+
 				tasks.add(task);
 			}
 		} catch (Exception e) {
@@ -119,7 +135,7 @@ public class TaskService implements TaskServiceInterface {
 	}
 
 	@Override
-	public TaskModel getTaskById(int idTask) {
+	public TaskModel getTaskById(int idTask) throws SQLException {
 
 		String query = String.format(Contants.GET_TASKS_BY_ID, TABLE_NAME, "idTask");
 
@@ -138,7 +154,7 @@ public class TaskService implements TaskServiceInterface {
 				task.setEndDate(rs.getObject("endDate", LocalDate.class));
 				task.setIdProject(rs.getInt("idProject"));
 				task.setIdUser(rs.getInt("idUser"));
-				
+
 				return task;
 
 			}
@@ -148,4 +164,31 @@ public class TaskService implements TaskServiceInterface {
 		return null;
 	}
 
+	public int getUserIdByName(String name) throws SQLException {
+		String query = "SELECT idUser FROM users WHERE name = ?";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(1, name);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt("idUser");
+				}
+			}
+		}
+		throw new SQLException("Aucun utilisateur trouvé avec ce nom : " + name);
+	}
+
+	public int getProjectIdByProjectKey(String projectKey) throws SQLException {
+
+		String query = "SELECT idProject FROM project WHERE projectKey = ?";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(2, projectKey);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt("idProject");
+				}
+			}
+		}
+		throw new SQLException("Aucun projet trouvé avec cette clé : " + projectKey);
+
+	}
 }

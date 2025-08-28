@@ -17,6 +17,8 @@ public class TaskModel {
 	private PriorityTask priority;
 	private LocalDate startDate;
 	private LocalDate endDate;
+	private String projectKey;
+	private String userName;
 	private int idProject;
 	private int idUser;
 	
@@ -27,8 +29,8 @@ public class TaskModel {
 
 
 	public TaskModel(int idTask, String title, String description, StatusTask status, PriorityTask priority,
-			LocalDate startDate, LocalDate endDate, int idProject, int idUser) {
-		
+			LocalDate startDate, LocalDate endDate, String projectKey, String userName, int idProject, int idUser) {
+		super();
 		this.idTask = idTask;
 		this.title = title;
 		this.description = description;
@@ -36,6 +38,8 @@ public class TaskModel {
 		this.priority = priority;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.projectKey = projectKey;
+		this.userName = userName;
 		this.idProject = idProject;
 		this.idUser = idUser;
 	}
@@ -111,6 +115,26 @@ public class TaskModel {
 	}
 
 
+	public String getProjectKey() {
+		return projectKey;
+	}
+
+
+	public void setProjectKey(String projectKey) {
+		this.projectKey = projectKey;
+	}
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
 	public int getIdProject() {
 		return idProject;
 	}
@@ -130,13 +154,6 @@ public class TaskModel {
 		this.idUser = idUser;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Task [idTask=" + idTask + ", title=" + title + ", description=" + description + ", status=" + status
-				+ ", priority=" + priority + ", startDate=" + startDate + ", endDate=" + endDate + ", idProject="
-				+ idProject + ", idUser=" + idUser + "]";
-	}
 
 	
 	
