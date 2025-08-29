@@ -39,14 +39,17 @@ public class ProjectView {
 
 		System.out.print("statut : ");
 		ProjectStatus status = ProjectStatus.valueOf(scanner.nextLine().toUpperCase());
-		// ProjectStatus status = ProjectStatus.valueOf(input.trim().toUpperCase());
 
 		System.out.print("Le nom Du chef de project : ");
 
 		String projectManagerName = scanner.nextLine();
+		
+		System.out.print("Le nom Du client du projet : ");
+
+		String clientName = scanner.nextLine();
 
 		ProjectModel project = projectController.createProject(names, projectKey, description, startDate, endDate,
-				status, projectManagerName);
+				status, projectManagerName,clientName);
 		if (project != null) {
 			System.out.println("Projet créé avec succès !");
 		} else {
@@ -90,6 +93,9 @@ public class ProjectView {
 
 			System.out.print("Nouveau  chef project : ");
 			projects.setProjectManagerName(scanner.nextLine());
+			
+			System.out.print("Nouveau  client du  project : ");
+			projects.setClientName(scanner.nextLine());
 
 			if (projectController.updateProject(projects)) {
 				System.out.println("Projet mis à jour !");
@@ -124,9 +130,9 @@ public class ProjectView {
 			System.out.println("=== Liste des Projects ===");
 			for (ProjectModel p : project1) {
 				System.out.printf(
-						"Identifiant project : %d | Nom : %s | Description : %s | Date debut : %s | Date fin : %s | Statut : %s |Le nom du chef de project  : %s | identifiant du chef de project : %d%n",
+						"Identifiant project : %d | Nom : %s | Description : %s | Date debut : %s | Date fin : %s | Statut : %s |Le nom du chef de project  : %s | le client du  project : %s%n",
 						p.getIdProject(), p.getName(), p.getDescription(), p.getStartDate(), p.getEndDate(),
-						p.getStatus(), p.getProjectManagerName(), p.getIdProjectManager());
+						p.getStatus(), p.getProjectManagerName(), p.getClientName());
 			}
 		}
 

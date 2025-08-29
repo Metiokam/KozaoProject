@@ -17,12 +17,14 @@ public class DashboardChefProjet {
 			System.out.println("======== Tableau de bord Chef de Projet =======");
 
 			System.out.println("================ Gérer les tâches================");
+			
 			System.out.println("1. Créer une tache");
 			System.out.println("2. Modifier une tache");
 			System.out.println("3. Supprimer une tache");
 			System.out.println("4. Afficher tous les  taches");
 
 			System.out.println("================ Gérer Commentaire================");
+			
 			System.out.println("5. Créer un commentaire");
 			System.out.println("6. Modifier un commentaire");
 			System.out.println("7. Supprimer un commentaire");
@@ -33,7 +35,13 @@ public class DashboardChefProjet {
 			System.out.println("10. Supprimer un document");
 			System.out.println("11. Afficher un document");
 			System.out.println("12. Afficher tous les  documents");
-
+			
+			System.out.println("================ Consulter Statitiques================");
+			
+			System.out.println("13. Afficher nombre de tache en cours");
+			System.out.println("14. Afficher nombre de tache en attente");
+			System.out.println("15. Afficher nombres de tache terminer");
+			
 			System.out.println("0. Déconnexion");
 			System.out.print("Votre choix : ");
 

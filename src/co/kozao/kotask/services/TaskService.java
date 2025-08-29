@@ -82,7 +82,7 @@ public class TaskService implements TaskServiceInterface {
 			return ps.executeUpdate() > 0;
 
 		} catch (Exception e) {
-			LOGGER.error("Erreur lors de la modifaication d'un projet :" + e.getMessage());
+			LOGGER.error("Erreur lors de la modifaication de la tache :" + e.getMessage());
 
 		}
 		return false;
@@ -105,7 +105,7 @@ public class TaskService implements TaskServiceInterface {
 	@Override
 	public List<TaskModel> getAllTask() throws SQLException {
 		List<TaskModel> tasks = new ArrayList<>();
-		String query = String.format(Contants.GET_ALL_TASKS, TABLE_NAME);
+		String query = String.format(Contants.GET_ALL_TASKS, TABLE_NAME,"project","users");
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
@@ -120,9 +120,6 @@ public class TaskService implements TaskServiceInterface {
 				task.setPriority(PriorityTask.valueOf(rs.getString("priority")));
 				task.setStartDate(rs.getObject("startDate", LocalDate.class));
 				task.setEndDate(rs.getObject("endDate", LocalDate.class));
-				task.setIdProject(rs.getInt("idProject"));
-				task.setIdUser(rs.getInt("idUser"));
-				
 				task.setProjectKey(rs.getString("projectKey"));
 				task.setUserName(rs.getString("userName"));
 

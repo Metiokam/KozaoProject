@@ -23,8 +23,9 @@ public class Contants {
 
 	public static final String CREATED_PROJECTS = "INSERT INTO %s ( %s, %s, %s, %s, %s, %s, %s)"
 			+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
-	public static final String GET_ALL_PROJECTS = "SELECT p.*, u.name AS managerName FROM %s p "
-			+ "JOIN users u ON p.projectManagerId = u.idUser";
+	public static final String GET_ALL_PROJECTS = "SELECT p.*,  u.name AS managerName, c.name AS clientName " + "FROM %s p "
+			+ "JOIN %s c ON p.idClient = c.idClient " + "JOIN %s u ON p.projectManagerId = u.idUser";
+	
 	public static final String DELETE__PROJECTS = "DELETE FROM %s WHERE %s = ?";
 	public static final String UPDATE__PROJECTS = "UPDATE %s SET  %s=?, %s=?, %s=?, %s=? , %s=? , %s=? , %s=?  WHERE %s = ?";
 	public static final String GET_PROJECT_BY_ID = "SELECT * FROM %s WHERE %s = ?";
@@ -36,8 +37,13 @@ public class Contants {
 	public static final String DELETE_TASKS = "DELETE FROM %s WHERE %s = ?";
 	public static final String UPDATE_TASKS = "UPDATE %s SET  %s=?, %s=?, %s=?, %s=? , %s=? , %s=? , %s=? , %s=? WHERE %s = ?";
 
+	//public static final String GET_ALL_TASKS = "SELECT t.*, p.*, u.* AS userName " + "FROM %s t "
+			//+ "JOIN project p ON t.idProject = p.idProject " + "JOIN users u ON t.idUser = u.idUser" 
+	//"SELECT p.*, u.name AS managerName FROM %s p "
+			//+ "JOIN users u ON p.projectManagerId = u.idUser";;
+	
 	public static final String GET_ALL_TASKS = "SELECT t.*, p.projectKey, u.name AS userName " + "FROM %s t "
-			+ "JOIN project p ON t.idProject = p.idProject " + "JOIN users u ON t.idUser = u.idUser";
+			+ "JOIN %s p ON t.idProject = p.idProject " + "JOIN %s u ON t.idUser = u.idUser";
 
 	public static final String GET_TASKS_BY_ID = "SELECT * FROM %s WHERE %s = ?";
 
@@ -63,5 +69,11 @@ public class Contants {
 	public static final String GET_ALL_NOTIFICTIONS = "SELECT * FROM %s";
 	// public static final String UPDATE_NOTIFICTIONS = "UPDATE %s SET %s=? WHERE
 	// %s=?";
+
+	public static final String CREATED_CLIENTS = "INSERT INTO %s ( %s, %s, %s)" + " VALUES(?, ?, ?)";
+	public static final String GET_ALL_CLIENTS = "SELECT * FROM %s";
+	public static final String GET_CLIENTS_BY_ID = "SELECT * FROM %s WHERE %s = ?";
+	public static final String DELETE_CLIENTS = "DELETE FROM %s WHERE %s = ?";
+	public static final String UPDATE_CLIENTS = "UPDATE %s SET  %s=?, %s=?, %s=?  WHERE %s = ?";
 
 }

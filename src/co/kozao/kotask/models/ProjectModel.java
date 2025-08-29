@@ -13,15 +13,19 @@ public class ProjectModel {
     private LocalDate endDate;     
     private ProjectStatus status; 
     private String projectManagerName;
-    private int idProjectManager;   
+    private int idProjectManager;
+    private String clientName;
+    private int idClient;  
    
     
 	public ProjectModel() {
 		
 	}
 
-	public ProjectModel(int idProject, String name, String projectKey, String description, LocalDate startDate, LocalDate endDate,
-			ProjectStatus status,String projectManagerName, int idProjectManager) {
+
+	public ProjectModel(int idProject, String name, String projectKey, String description, LocalDate startDate,
+			LocalDate endDate, ProjectStatus status, String projectManagerName, int idProjectManager, String clientName,
+			int idClient) {
 		super();
 		this.idProject = idProject;
 		this.name = name;
@@ -30,95 +34,124 @@ public class ProjectModel {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.status = status;
-		this.projectManagerName= projectManagerName;
+		this.projectManagerName = projectManagerName;
 		this.idProjectManager = idProjectManager;
-		//this.members = members;
-		//this.task = task;
+		this.clientName = clientName;
+		this.idClient = idClient;
 	}
+
 
 	public int getIdProject() {
 		return idProject;
 	}
 
+
 	public void setIdProject(int idProject) {
 		this.idProject = idProject;
 	}
+
 
 	public String getName() {
 		return name;
 	}
 
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 
 	public String getProjectKey() {
 		return projectKey;
 	}
 
+
 	public void setProjectKey(String projectKey) {
 		this.projectKey = projectKey;
 	}
+
 
 	public String getDescription() {
 		return description;
 	}
 
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 
 	public LocalDate getStartDate() {
 		return startDate;
 	}
 
+
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
+
 
 	public LocalDate getEndDate() {
 		return endDate;
 	}
 
+
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
+
 
 	public ProjectStatus getStatus() {
 		return status;
 	}
 
+
 	public void setStatus(ProjectStatus status) {
 		this.status = status;
 	}
-	
+
+
 	public String getProjectManagerName() {
 		return projectManagerName;
 	}
-	
+
+
 	public void setProjectManagerName(String projectManagerName) {
 		this.projectManagerName = projectManagerName;
 	}
-	
+
 
 	public int getIdProjectManager() {
 		return idProjectManager;
 	}
 
+
 	public void setIdProjectManager(int idProjectManager) {
 		this.idProjectManager = idProjectManager;
 	}
 
-	@Override
-	public String toString() {
-		return "Project [idProject=" + idProject + ", name=" + name + ", projectKey=" + projectKey + ", description=" + description
-				+ ", startDate=" + startDate + ", endDate=" + endDate + ", status=" + status + ", idProjectManager="
-				+ idProjectManager + "]";
+
+	public String getClientName() {
+		return clientName;
+	}
+
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+
+	public int getIdClient() {
+		return idClient;
+	}
+
+
+	public void setIdClient(int idClient) {
+		this.idClient = idClient;
 	}
 
 	
-    
-	
+
     
          
 }

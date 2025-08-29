@@ -26,7 +26,7 @@ public class ProjectService implements ProjectServiceInterface {
 	public List<ProjectModel> getAllProjects() {
 
 		List<ProjectModel> project = new ArrayList<>();
-		String query = String.format(Contants.GET_ALL_PROJECTS, TABLE_NAME);
+		String query = String.format(Contants.GET_ALL_PROJECTS, TABLE_NAME, "client", "users");
 
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
@@ -41,15 +41,14 @@ public class ProjectService implements ProjectServiceInterface {
 				project1.setStartDate(rs.getObject("startDate", LocalDate.class));
 				project1.setEndDate(rs.getObject("endDate", LocalDate.class));
 				project1.setStatus(ProjectStatus.valueOf(rs.getString("status")));
-				project1.setIdProjectManager(rs.getInt("projectManagerId"));
-
 				project1.setProjectManagerName(rs.getString("managerName"));
+				project1.setClientName(rs.getString("clientName"));
 
 				project.add(project1);
 			}
 
 		} catch (SQLException e) {
-			LOGGER.error("Erreur lors de recuperation de la liste des projets: " + e.getMessage());
+			LOGGER.error("Erreur lors de recuperation de la liste des projets: ", e);
 		}
 		return project;
 	}
@@ -60,8 +59,11 @@ public class ProjectService implements ProjectServiceInterface {
 		int managerId = getUserIdByName(project.getProjectManagerName());
 		project.setIdProjectManager(managerId);
 
+		int idClient = getClientIdByName(project.getClientName());
+		project.setIdClient(idClient);
+
 		String query = String.format(Contants.CREATED_PROJECTS, TABLE_NAME, "name", "projectKey", "description",
-				"startDate", "endDate", "status", "projectManagerId");
+				"startDate", "endDate", "status", "projectManagerId", "idClient");
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 
@@ -72,6 +74,7 @@ public class ProjectService implements ProjectServiceInterface {
 			ps.setObject(5, project.getEndDate());
 			ps.setString(6, project.getStatus().name());
 			ps.setInt(7, project.getIdProjectManager());
+			ps.setInt(8, project.getIdClient());
 
 			if (ps.executeUpdate() > 0) {
 
@@ -90,9 +93,11 @@ public class ProjectService implements ProjectServiceInterface {
 
 		int managerId = getUserIdByName(project.getProjectManagerName());
 		project.setIdProjectManager(managerId);
+		int idClient = getClientIdByName(project.getClientName());
+		project.setIdClient(idClient);
 
 		String query = String.format(Contants.UPDATE__PROJECTS, TABLE_NAME, "name", "projectKey", "description",
-				"startDate", "endDate", "status", "projectManagerId");
+				"startDate", "endDate", "status", "projectManagerId", "idClient");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setString(1, project.getName());
 			ps.setString(2, project.getProjectKey());
@@ -101,7 +106,8 @@ public class ProjectService implements ProjectServiceInterface {
 			ps.setObject(5, project.getEndDate());
 			ps.setString(6, project.getStatus().name());
 			ps.setInt(7, project.getIdProjectManager());
-			ps.setInt(8, project.getIdProject());
+			ps.setInt(8, project.getIdClient());
+			ps.setInt(9, project.getIdProject());
 
 			return ps.executeUpdate() > 0;
 		} catch (SQLException e) {
@@ -144,6 +150,7 @@ public class ProjectService implements ProjectServiceInterface {
 				project.setEndDate(rs.getObject("endDate", LocalDate.class));
 				project.setStatus(ProjectStatus.valueOf(rs.getString("status")));
 				project.setIdProjectManager(rs.getInt("projectManagerId"));
+				project.setIdClient(rs.getInt("idClient"));
 				return project;
 			}
 
@@ -165,5 +172,18 @@ public class ProjectService implements ProjectServiceInterface {
 			}
 		}
 		throw new SQLException("Aucun utilisateur trouvé avec ce nom : " + name);
+	}
+
+	private int getClientIdByName(String clientName) throws SQLException {
+		String query = "SELECT idClient FROM users WHERE name = ?";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(1, clientName);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt("idClient");
+				}
+			}
+		}
+		throw new SQLException("Aucun client trouvé avec ce nom : " + clientName);
 	}
 }

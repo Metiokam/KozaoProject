@@ -129,9 +129,9 @@ public class TaskView {
 			System.out.println("=== Liste des Taches ===");
 			for (TaskModel t : task1) {
 				System.out.printf(
-						"Identifiant tache: %d | Titre: %s | Descritpion: %s | Satut: %s | Priorité: %s | Date debut : %s | Date fin: %s | Identifiant projet: %d|| clé du  projet: %s| Identifiant utilisateur: %d| le nom de l'utilisateur: %s%n",
+						"Identifiant tache: %d | Titre: %s | Descritpion: %s | Satut: %s | Priorité: %s | Date debut : %s | Date fin: %s | clé du  projet: %s|  le nom de l'utilisateur: %s%n",
 						t.getIdTask(), t.getTitle(), t.getDescription(), t.getStatus(), t.getPriority(),
-						t.getStartDate(), t.getEndDate(), t.getIdProject(),t.getProjectKey(), t.getIdUser(),t.getUserName());
+						t.getStartDate(), t.getEndDate(), t.getProjectKey(),t.getUserName());
 			}
 		}
 
