@@ -68,7 +68,7 @@ public class TaskAccessController {
         try {
             return taskService.getAllTask();
         } catch (Exception e) {
-            LOGGER.error("Erreur lors de l'affichage des tâches : " + e.getMessage(), e);
+            LOGGER.error("Erreur lors de l'affichage des tâches : " , e);
             return null;
         }
     }
@@ -77,7 +77,7 @@ public class TaskAccessController {
         try {
             return taskService.getTaskById(idTask);
         } catch (Exception e) {
-            LOGGER.error("Erreur lors de la récupération de la tâche : " + e.getMessage(), e);
+            LOGGER.error("Erreur lors de la récupération de la tâche : " , e);
             return null;
         }
     }

@@ -7,8 +7,6 @@ import org.apache.log4j.Logger;
 
 import co.kozao.kotask.models.ProjectModel;
 import co.kozao.kotask.models.enums.ProjectStatus;
-//import co.kozao.kotask.models.Role;
-//import co.kozao.kotask.models.User;
 import co.kozao.kotask.services.ProjectService;
 import co.kozao.kotask.services.interfaces.ProjectServiceInterface;
 import co.kozao.kotask.utils.actionvalidation.ProjectActionValidationUtils;
@@ -28,7 +26,7 @@ public class ProjectAccessController {
 		project.setStatus(status);
 		project.setProjectManagerName(projectManagerName);
 		project.setClientName(clientName);
-		
+
 		LOGGER.info("Tentative de création du projet : " + project);
 
 		try {
@@ -37,13 +35,13 @@ public class ProjectAccessController {
 
 			ProjectModel createdProject = projectService.createProject(project);
 
-	        if (createdProject != null) {
-	            LOGGER.info("Projet créé avec succès : " + createdProject);
-	        } else {
-	            LOGGER.error("Le service n'a pas pu créer le projet, résultat null.");
-	        }
+			if (createdProject != null) {
+				LOGGER.info("Projet créé avec succès : " + createdProject);
+			} else {
+				LOGGER.error("Le service n'a pas pu créer le projet, résultat null.");
+			}
 
-	        return createdProject;
+			return createdProject;
 
 		} catch (Exception e) {
 			LOGGER.error("Erreur lors de la création du projet : " + e.getMessage());
@@ -63,11 +61,11 @@ public class ProjectAccessController {
 
 	public boolean deleteProject(int idProject) {
 		try {
-			if(ProjectActionValidationUtils.validateidProject(idProject)) {
+			if (ProjectActionValidationUtils.validateidProject(idProject)) {
 				return false;
 			}
-			return 	projectService.deleteProject(idProject);
-			
+			return projectService.deleteProject(idProject);
+
 		} catch (Exception e) {
 			LOGGER.error("Erreur lors de la suppression du projet : " + e.getMessage(), e);
 			return false;

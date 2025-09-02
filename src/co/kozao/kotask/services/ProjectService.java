@@ -194,13 +194,13 @@ public class ProjectService implements ProjectServiceInterface {
 	}
 	
 	public boolean updateTaskStatut(ProjectModel project) throws SQLException {
-        String query = String.format(Contants.UPDATE_STATUS, TABLE_NAME, "status");
+        String query = String.format(Contants.UPDATE_STATUS, TABLE_NAME, "status","idProject");
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, project.getStatus().name());
             ps.setInt(2, project.getIdProject());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error("Erreur lors de la modification du statut du projet : " , e);
+           // LOGGER.error("Erreur lors de la modification du statut du projet : " , e);
         }
         return false;
     }
@@ -214,11 +214,11 @@ public class ProjectService implements ProjectServiceInterface {
                 projects.updateStatut();
                 if (!ancien.equals(projects.getStatus())) {
                     updateTaskStatut(projects);
-                    LOGGER.info("Mise à jour : " + projects.getProjectKey() + " " + projects.getStatus());
+                    //LOGGER.info("Mise à jour : " + projects.getProjectKey() + " " + projects.getStatus());
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error("Erreur lors de la mise à jour des statuts : " + e.getMessage(), e);
+            //LOGGER.error("Erreur lors de la mise à jour des statuts : " + e.getMessage(), e);
         }
     }
 }

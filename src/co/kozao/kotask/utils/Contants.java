@@ -38,17 +38,11 @@ public class Contants {
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_TASKS = "DELETE FROM %s WHERE %s = ?";
 	public static final String UPDATE_TASKS = "UPDATE %s SET  %s=?, %s=?, %s=?, %s=? , %s=? , %s=? , %s=? , %s=? WHERE %s = ?";
-
-	//public static final String GET_ALL_TASKS = "SELECT t.*, p.*, u.* AS userName " + "FROM %s t "
-			//+ "JOIN project p ON t.idProject = p.idProject " + "JOIN users u ON t.idUser = u.idUser" 
-	//"SELECT p.*, u.name AS managerName FROM %s p "
-			//+ "JOIN users u ON p.projectManagerId = u.idUser";;
-	
 	public static final String GET_ALL_TASKS = "SELECT t.*, p.projectKey, u.name AS userName " + "FROM %s t "
 			+ "JOIN %s p ON t.idProject = p.idProject " + "JOIN %s u ON t.idUser = u.idUser";
 
 	public static final String GET_TASKS_BY_ID = "SELECT * FROM %s WHERE %s = ?";
-	public static final String UPDATE_STATUS ="UPDATE %s SET %s=? WHERE id=?";
+	public static final String UPDATE_STATUS ="UPDATE %s SET %s=? WHERE %s=?";
 
 	// Comments
 

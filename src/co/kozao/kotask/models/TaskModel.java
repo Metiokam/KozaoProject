@@ -44,11 +44,11 @@ public class TaskModel {
 		LocalDate today = LocalDate.now();
 
 		if (today.isBefore(startDate)) {
-			status = StatusTask.A_FAIRE;
+			status = StatusTask.TO_DO;
 		} else if ((today.isEqual(startDate) || today.isAfter(startDate)) && today.isBefore(endDate)) {
-			status = StatusTask.EN_COURS;
+			status = StatusTask.IN_PROGRESS;
 		} else if (today.isEqual(endDate) || today.isAfter(endDate)) {
-			status = StatusTask.TERMINE;
+			status = StatusTask.COMPLETED;
 		}
 	}
 

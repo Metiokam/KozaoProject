@@ -169,20 +169,21 @@ public class TaskService implements TaskServiceInterface {
 	}
 
 	public boolean updateTaskStatut(TaskModel task) throws SQLException {
-		String query = String.format(Contants.UPDATE_STATUS, TABLE_NAME, "status");
+		String query = String.format(Contants.UPDATE_STATUS, TABLE_NAME, "status", "idTask");
 		try (PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setString(1, task.getStatus().name());
 			ps.setInt(2, task.getIdTask());
 			return ps.executeUpdate() > 0;
 		} catch (SQLException e) {
-			LOGGER.error("Erreur lors de la modification du statut de la tache : " + e.getMessage(), e);
+			// LOGGER.error("Erreur lors de la modification du statut de la tache : " +
+			// e.getMessage(), e);
 		}
 		return false;
 	}
 
 	@Override
-
 	public void mettreAJourStatuts() {
+		int nbUpdates = 0;
 		try {
 			List<TaskModel> tasks = getAllTask();
 			for (TaskModel task : tasks) {
@@ -190,11 +191,18 @@ public class TaskService implements TaskServiceInterface {
 				task.updateStatut();
 				if (!ancien.equals(task.getStatus())) {
 					updateTaskStatut(task);
-					LOGGER.info("Mise à jour : " + task.getTitle() + " " + task.getStatus());
+					nbUpdates++;
+					// LOGGER.info("Mise à jour : " + task.getTitle() + " " + task.getStatus());
 				}
 			}
+			if (nbUpdates > 0) {
+				// LOGGER.info("Mises à jour effectuées sur " + nbUpdates + " tâche(s).");
+			} else {
+				// LOGGER.info("Aucune tâche mise à jour.");
+			}
 		} catch (SQLException e) {
-			LOGGER.error("Erreur lors de la mise à jour des statuts : " + e.getMessage(), e);
+			// LOGGER.error("Erreur lors de la mise à jour des statuts : " + e.getMessage(),
+			// e);
 		}
 	}
 }

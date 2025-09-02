@@ -14,8 +14,7 @@ public class TaskView {
 
 	private Scanner scanner = new Scanner(System.in);
 
-	private TaskAccessController taskController;
-
+	private TaskAccessController taskController = new TaskAccessController() ;
 
 	public void createTask() {
 

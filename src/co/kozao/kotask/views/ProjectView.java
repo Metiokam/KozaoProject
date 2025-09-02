@@ -48,8 +48,7 @@ public class ProjectView {
 
 		String clientName = scanner.nextLine();
 
-		ProjectModel project = projectController.createProject(names, projectKey, description, startDate, endDate,
-				status, projectManagerName,clientName);
+		ProjectModel project = projectController.createProject(names, projectKey, description, startDate, endDate, status, projectManagerName, clientName);
 		if (project != null) {
 			System.out.println("Projet créé avec succès !");
 		} else {
