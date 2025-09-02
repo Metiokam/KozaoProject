@@ -5,23 +5,20 @@ import java.time.LocalDate;
 import co.kozao.kotask.models.enums.ProjectStatus;
 
 public class ProjectModel {
-    private int idProject;
-    private String name;           
-    private String projectKey;     
-    private String description;
-    private LocalDate startDate;   
-    private LocalDate endDate;     
-    private ProjectStatus status; 
-    private String projectManagerName;
-    private int idProjectManager;
-    private String clientName;
-    private int idClient;  
-   
-    
-	public ProjectModel() {
-		
-	}
+	private int idProject;
+	private String name;
+	private String projectKey;
+	private String description;
+	private LocalDate startDate;
+	private LocalDate endDate;
+	private ProjectStatus status;
+	private String projectManagerName;
+	private int idProjectManager;
+	private String clientName;
+	private int idClient;
 
+	public ProjectModel() {
+	}
 
 	public ProjectModel(int idProject, String name, String projectKey, String description, LocalDate startDate,
 			LocalDate endDate, ProjectStatus status, String projectManagerName, int idProjectManager, String clientName,
@@ -40,121 +37,104 @@ public class ProjectModel {
 		this.idClient = idClient;
 	}
 
+	public void updateStatut() {
+		LocalDate today = LocalDate.now();
+
+		if (today.isBefore(startDate)) {
+			status = ProjectStatus.PENDING;
+		} else if ((today.isEqual(startDate) || today.isAfter(startDate)) && today.isBefore(endDate)) {
+			status = ProjectStatus.IN_PROGRESS;
+		} else if (today.isEqual(endDate) || today.isAfter(endDate)) {
+			status = ProjectStatus.COMPLETED;
+		}
+	}
 
 	public int getIdProject() {
 		return idProject;
 	}
 
-
 	public void setIdProject(int idProject) {
 		this.idProject = idProject;
 	}
-
 
 	public String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public String getProjectKey() {
 		return projectKey;
 	}
 
-
 	public void setProjectKey(String projectKey) {
 		this.projectKey = projectKey;
 	}
-
 
 	public String getDescription() {
 		return description;
 	}
 
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 
 	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-
 
 	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
-
 
 	public ProjectStatus getStatus() {
 		return status;
 	}
 
-
 	public void setStatus(ProjectStatus status) {
 		this.status = status;
 	}
-
 
 	public String getProjectManagerName() {
 		return projectManagerName;
 	}
 
-
 	public void setProjectManagerName(String projectManagerName) {
 		this.projectManagerName = projectManagerName;
 	}
-
 
 	public int getIdProjectManager() {
 		return idProjectManager;
 	}
 
-
 	public void setIdProjectManager(int idProjectManager) {
 		this.idProjectManager = idProjectManager;
 	}
-
 
 	public String getClientName() {
 		return clientName;
 	}
 
-
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
 	}
-
 
 	public int getIdClient() {
 		return idClient;
 	}
 
-
 	public void setIdClient(int idClient) {
 		this.idClient = idClient;
 	}
 
-	
-
-    
-         
 }
-
-
-

@@ -21,6 +21,12 @@ public class ProjectService implements ProjectServiceInterface {
 	private static final Logger LOGGER = Logger.getLogger(ProjectService.class);
 	private Connection con = DBConnection.getConnection();
 	private final String TABLE_NAME = "project";
+	private final ProjectScheduler scheduler;
+	
+	public ProjectService() {
+		this.scheduler = new ProjectScheduler(this);
+        this.scheduler.demarrer();
+	}
 
 	@Override
 	public List<ProjectModel> getAllProjects() {
@@ -186,4 +192,33 @@ public class ProjectService implements ProjectServiceInterface {
 		}
 		throw new SQLException("Aucun client trouvé avec ce nom : " + clientName);
 	}
+	
+	public boolean updateTaskStatut(ProjectModel project) throws SQLException {
+        String query = String.format(Contants.UPDATE_STATUS, TABLE_NAME, "status");
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, project.getStatus().name());
+            ps.setInt(2, project.getIdProject());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            LOGGER.error("Erreur lors de la modification du statut du projet : " , e);
+        }
+        return false;
+    }
+   
+
+    public void mettreAJourStatuts() {
+        try {
+        	List<ProjectModel>project = getAllProjects() ;
+            for (ProjectModel projects : project) {
+                ProjectStatus ancien = projects.getStatus();
+                projects.updateStatut();
+                if (!ancien.equals(projects.getStatus())) {
+                    updateTaskStatut(projects);
+                    LOGGER.info("Mise à jour : " + projects.getProjectKey() + " " + projects.getStatus());
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Erreur lors de la mise à jour des statuts : " + e.getMessage(), e);
+        }
+    }
 }
