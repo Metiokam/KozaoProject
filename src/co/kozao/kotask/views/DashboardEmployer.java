@@ -17,6 +17,9 @@ public class DashboardEmployer {
 			System.out.println("3. Consulter mes notifications");
 			System.out.println("4. Consulter mes commentaires");
 			System.out.println("5.Consulter mes statitiques ");
+			
+			
+			}
 			System.out.println("3. Déconnexion");
 
 			int choix = scanner.nextInt();
@@ -27,4 +30,4 @@ public class DashboardEmployer {
 		}
 	}
 
-}
+

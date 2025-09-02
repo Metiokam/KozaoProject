@@ -18,6 +18,8 @@ public class Contants {
 	public static final String UPDATE_USERS = "UPDATE %s SET  %s=?, %s=?, %s=?, %s=? , %s=? , %s=? , %s=?  WHERE %s = ?";
 	public static final String AUTHENTIFIQUE_USERS = "SELECT * FROM %s WHERE %s = ? AND %s = ?";
 	public static final String GET_USER_BY_EMAIL = "SELECT * FROM %s WHERE %s=?";
+	public static final String UPDATE_ROLE = "UPDATE %s SET  %s=?  WHERE %s = ?";
+	
 
 	// Projets
 
@@ -46,6 +48,7 @@ public class Contants {
 			+ "JOIN %s p ON t.idProject = p.idProject " + "JOIN %s u ON t.idUser = u.idUser";
 
 	public static final String GET_TASKS_BY_ID = "SELECT * FROM %s WHERE %s = ?";
+	public static final String UPDATE_STATUS ="UPDATE %s SET %s=? WHERE id=?";
 
 	// Comments
 

@@ -62,6 +62,6 @@ public class UserActionValidationUtils {
 	}
 
 	public static boolean isValidRole(Role role) {
-		return role == Role.ADMIN || role == Role.PROJECT_MANAGER || role == Role.MEMBER || role == Role.TESTER;
+		return role == Role.ADMIN || role == Role.PROJECT_MANAGER || role == Role.DEVELOPPEUR || role == Role.TESTER;
 	}
 }

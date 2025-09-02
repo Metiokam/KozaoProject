@@ -12,9 +12,10 @@ import co.kozao.kotask.models.enums.StatusTask;
 
 public class TaskView {
 
-	Scanner scanner = new Scanner(System.in);
+	private Scanner scanner = new Scanner(System.in);
 
-	TaskAccessController taskController = new TaskAccessController();
+	private TaskAccessController taskController;
+
 
 	public void createTask() {
 
@@ -47,7 +48,8 @@ public class TaskView {
 		System.out.print("Entrer le nom De l'utilisateur de la tache : ");
 		String userName = scanner.nextLine();
 
-		TaskModel task = taskController.createTask(title, descriptions, status, priority, startDate, endDate, projectKey, userName);
+		TaskModel task = taskController.createTask(title, descriptions, status, priority, startDate, endDate,
+				projectKey, userName);
 		if (task != null) {
 			System.out.println("Task créé avec succès !");
 		} else {
@@ -131,7 +133,7 @@ public class TaskView {
 				System.out.printf(
 						"Identifiant tache: %d | Titre: %s | Descritpion: %s | Satut: %s | Priorité: %s | Date debut : %s | Date fin: %s | clé du  projet: %s|  le nom de l'utilisateur: %s%n",
 						t.getIdTask(), t.getTitle(), t.getDescription(), t.getStatus(), t.getPriority(),
-						t.getStartDate(), t.getEndDate(), t.getProjectKey(),t.getUserName());
+						t.getStartDate(), t.getEndDate(), t.getProjectKey(), t.getUserName());
 			}
 		}
 

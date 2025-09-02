@@ -19,6 +19,7 @@ public class DashboardAdmin {
 			System.out.println("2. Modifier un utilisateur");
 			System.out.println("3. Supprimer un utilisateur");
 			System.out.println("4. Afficher tous les  utilisateur");
+			System.out.println("42. Modifier role");
 
 			System.out.println("================= Gérer les clients=======================");
 			
@@ -78,6 +79,12 @@ public class DashboardAdmin {
 			case 4:
 
 				userView.getAllUsers();
+
+				break;
+				
+			case 42:
+
+				userView.updateRole();;
 
 				break;
 				

@@ -91,7 +91,7 @@ public class UserAccessController {
 			
 		} catch (Exception e) {
 			
-			LOGGER.error("Erreur lors de la suppression d'utilisateur de l'utilisateur : " + e.getMessage());
+			LOGGER.error("Erreur lors de la suppression d'utilisateur de l'utilisateur : " , e);
 			return false;
 		}
 	}
@@ -100,9 +100,21 @@ public class UserAccessController {
 		try {
 			return userService.getAllUsers();
 		} catch (Exception e) {
-			LOGGER.error("Erreur lors de l'affichage de la liste des utilisateurs  : " + e.getMessage());
+			LOGGER.error("Erreur lors de l'affichage de la liste des utilisateurs  : " ,e);
 			return null;
 		}
-
+	}
+	
+	public boolean updateRole(UserModel user) {
+		
+		try {
+			return userService.updateRole(user);
+		} catch (Exception e) {
+			LOGGER.error("Erreur lors de la modification du role de l'utilisateur : " ,e);
+			
+			return false;
+		}
+		
+		
 	}
 }

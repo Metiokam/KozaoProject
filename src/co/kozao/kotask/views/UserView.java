@@ -10,7 +10,6 @@ import co.kozao.kotask.models.enums.Role;
 public class UserView {
 
 	UserAccessController controller = new UserAccessController();
-	
 
 	Scanner scanner = new Scanner(System.in);
 
@@ -48,6 +47,30 @@ public class UserView {
 			System.out.println("Erreur lors de la création du compte.");
 		}
 	}
+
+	public void updateRole() {
+
+		System.out.print("ID utilisateur à modifier : ");
+		int idUser = scanner.nextInt();
+		scanner.nextLine();
+
+		UserModel user = controller.getUserById(idUser);
+		if (user != null) {
+
+			System.out.print("Nouveau rôle (ADMIN, PROJECT_MANAGER, MEMBER, TESTER) : ");
+			user.setRole(Role.valueOf(scanner.nextLine()));
+
+			if (controller.updateRole(user)) {
+				System.out.println("Role mis à jour !");
+			} else {
+				System.out.println("Échec de la mise à jour.");
+			}
+		} else {
+			System.out.println("Utilisateur introuvable !");
+		}
+	}
+
+	
 
 	public void updateUser() {
 

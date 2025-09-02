@@ -1,6 +1,7 @@
 package co.kozao.kotask.services.interfaces;
 
 import co.kozao.kotask.models.UserModel;
+//import co.kozao.kotask.models.enums.Role;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface UserServiceInterface {
 	List<UserModel> getAllUsers();
 	
 	UserModel findByEmail(String email);
+	
+	boolean updateRole(UserModel user);
 }

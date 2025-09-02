@@ -44,6 +44,18 @@ public class TaskModel {
 		this.idUser = idUser;
 	}
 
+	
+	public void updateStatut() {
+        LocalDate today = LocalDate.now();
+
+        if (today.isBefore(startDate)) {
+            status = StatusTask.A_FAIRE;
+        } else if ((today.isEqual(startDate) || today.isAfter(startDate)) && today.isBefore(endDate)) {
+            status = StatusTask.EN_COURS;
+        } else if (today.isEqual(endDate) || today.isAfter(endDate)) {
+            status = StatusTask.TERMINE;
+        }
+    }
 
 	public int getIdTask() {
 		return idTask;
@@ -154,6 +166,8 @@ public class TaskModel {
 		this.idUser = idUser;
 	}
 
+	
+	
 
 	
 	

@@ -13,5 +13,7 @@ public interface TaskServiceInterface {
 	boolean deleteTask(int idTask)throws SQLException;
 	List<TaskModel> getAllTask()throws SQLException;
     TaskModel getTaskById(int task)throws SQLException;
+    boolean updateTaskStatut(TaskModel task)throws SQLException;
+    void mettreAJourStatuts();
 
 }

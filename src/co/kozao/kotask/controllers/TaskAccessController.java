@@ -1,7 +1,6 @@
 package co.kozao.kotask.controllers;
 
 import java.time.LocalDate;
-
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -12,81 +11,82 @@ import co.kozao.kotask.models.enums.StatusTask;
 import co.kozao.kotask.services.TaskService;
 import co.kozao.kotask.services.interfaces.TaskServiceInterface;
 
-
 public class TaskAccessController {
 
-	private TaskServiceInterface taskService = new TaskService();
-	private static final Logger LOGGER = Logger.getLogger(TaskAccessController.class);
+    private final TaskServiceInterface taskService;
+    private static final Logger LOGGER = Logger.getLogger(TaskAccessController.class);
 
-	public TaskModel createTask(String title, String description, StatusTask status, PriorityTask priority,
-			LocalDate startDate, LocalDate endDate, String projectKey, String userName) {
-		TaskModel task = new TaskModel();
-		task.setTitle(title);
-		task.setDescription(description);
-		task.setStatus(status);
-		task.setPriority(priority);
-		task.setStartDate(startDate);
-		task.setEndDate(endDate);
-		task.setProjectKey(projectKey);;
-		task.setUserName(userName);
+    public TaskAccessController() {
+        this.taskService = new TaskService(); 
+    }
 
-		try {
+    public TaskModel createTask(String title, String description, StatusTask status, PriorityTask priority,
+                                LocalDate startDate, LocalDate endDate, String projectKey, String userName) {
+        try {
+            TaskModel task = new TaskModel();
+            task.setTitle(title);
+            task.setDescription(description);
+            task.setStatus(status);
+            task.setPriority(priority);
+            task.setStartDate(startDate);
+            task.setEndDate(endDate);
+            task.setProjectKey(projectKey);
+            task.setUserName(userName);
 
-			// ProjectActionValidationUtils.validate(task);
+            TaskModel createdTask = taskService.createTask(task);
 
-			TaskModel createTask = taskService.createTask(task);
+            if (createdTask != null) {
+                LOGGER.info("Tâche créée avec succès : " + createdTask);
+            }
+            return createdTask;
 
-			if (createTask != null) {
-				LOGGER.info("Tache créé avec succès : " + createTask);
-			} else {
-				LOGGER.error("Le service n'a pas pu créer la tache, résultat null.");
-			}
+        } catch (Exception e) {
+            LOGGER.error("Erreur lors de la création de la tâche : " + e.getMessage(), e);
+            return null;
+        }
+    }
 
-			return createTask;
+    public boolean updateTask(TaskModel task) {
+        try {
+            return taskService.updateTask(task);
+        } catch (Exception e) {
+            LOGGER.error("Erreur lors de la modification de la tâche : " + e.getMessage(), e);
+            return false;
+        }
+    }
 
-		} catch (Exception e) {
-			LOGGER.error("Erreur lors de la création de la tache : " + e.getMessage());
-			return null;
-		}
-	}
+    public boolean deleteTask(int idTask) {
+        try {
+            return taskService.deleteTask(idTask);
+        } catch (Exception e) {
+            LOGGER.error("Erreur lors de la suppression de la tâche : " + e.getMessage(), e);
+            return false;
+        }
+    }
 
-	public boolean updateTask(TaskModel task) {
-		try {
-			return taskService.updateTask(task);
-		} catch (Exception e) {
-			LOGGER.error("Erreur lors de la modification de la tache : " + e.getMessage());
-			return false;
-		}
+    public List<TaskModel> getAllTask() {
+        try {
+            return taskService.getAllTask();
+        } catch (Exception e) {
+            LOGGER.error("Erreur lors de l'affichage des tâches : " + e.getMessage(), e);
+            return null;
+        }
+    }
 
-	}
+    public TaskModel getTaskById(int idTask) {
+        try {
+            return taskService.getTaskById(idTask);
+        } catch (Exception e) {
+            LOGGER.error("Erreur lors de la récupération de la tâche : " + e.getMessage(), e);
+            return null;
+        }
+    }
 
-	public boolean deleteTask(int idTask) {
-		try {
-			return taskService.deleteTask(idTask);
-		} catch (Exception e) {
-			LOGGER.error("Erreur lors de la suppresion de la tache : " + e.getMessage());
-		}
-		return false;
-	}
-
-	public List<TaskModel> getAllTask() {
-		try {
-			return taskService.getAllTask();
-		} catch (Exception e) {
-			LOGGER.error("Erreur lors de l'affichage de la liste des taches  : " + e.getMessage());
-			return null;
-		}
-	}
-
-	public TaskModel getTaskById(int idTask) {
-		try {
-			return taskService.getTaskById(idTask);
-
-		} catch (Exception e) {
-			LOGGER.error("Erreur lors de la recuperation de l'identifiant de la tache : " + e.getMessage());
-			return null;
-		}
-
-	}
-
+    public void majStatuts() {
+        try {
+            taskService.mettreAJourStatuts();
+        } catch (Exception e) {
+            LOGGER.error("Erreur lors de la mise à jour automatique des statuts : " + e.getMessage(), e);
+        }
+    }
 }

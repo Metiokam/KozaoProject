@@ -31,7 +31,10 @@ public class UserLogin {
 				case ADMIN:
 					DashboardAdmin.start(scanner);
 					break;
-				case MEMBER:
+				case DEVELOPPEUR:
+					DashboardEmployer.start(scanner);
+					break;
+				case TESTER:
 					DashboardEmployer.start(scanner);
 					break;
 				case PROJECT_MANAGER:

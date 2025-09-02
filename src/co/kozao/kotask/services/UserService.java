@@ -221,6 +221,22 @@ public class UserService implements UserServiceInterface {
 		}
 		return users;
 	}
+
+
+	@Override
+	public boolean updateRole(UserModel user) {
+		String query = String.format(Contants.UPDATE_ROLE, TABLE_NAME, "role");
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			
+			ps.setString(1, user.getRole().name());
+			
+			return ps.executeUpdate() > 0;
+			
+		} catch (SQLException e) {
+			LOGGER.error("Erreur lors de la modification du role : " + e.getMessage());
+		}
+		return false;
+	}
 	
 	
 
